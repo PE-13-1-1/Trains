@@ -1,5 +1,7 @@
 package ua.kture.pi1311.entity;
 
+import java.util.List;
+
 public class Train {
 	
 	private int trainId;
@@ -8,8 +10,21 @@ public class Train {
 	
 	private String finalPoint;
 	
+	private List<Station> stations;
+	
 	public Train() {
 		
+	}
+	
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || this.getClass() != o.getClass()) {
+			return false;
+		}
+		Train train = (Train) o;
+		boolean result = (this.trainId == train.getTrainId());
+		return result;
 	}
 	
 	public int getTrainId() {
@@ -34,6 +49,14 @@ public class Train {
 
 	public void setFinalPoint(String finalPoint) {
 		this.finalPoint = finalPoint;
+	}
+
+	public List<Station> getStations() {
+		return stations;
+	}
+
+	public void setStations(List<Station> stations) {
+		this.stations = stations;
 	}
 	
 	
