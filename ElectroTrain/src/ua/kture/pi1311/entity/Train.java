@@ -14,6 +14,10 @@ public class Train {
 	
 	private String direction;
 	
+	private int status;
+	
+	private int trainNumber;
+	
 	public Train() {
 		
 	}
@@ -69,6 +73,26 @@ public class Train {
 
 	public void setDirection(String direction) {
 		this.direction = direction;
+	}
+
+
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+	public int getTrainNumber() {
+		return trainNumber;
+	}
+
+
+	public void setTrainNumber(int trainNumber) {
+		this.trainNumber = trainNumber;
 	}
 	
 	
