@@ -12,6 +12,8 @@ public class Train {
 	
 	private List<Station> stations;
 	
+	private String direction;
+	
 	public Train() {
 		
 	}
@@ -57,6 +59,16 @@ public class Train {
 
 	public void setStations(List<Station> stations) {
 		this.stations = stations;
+	}
+
+
+	public String getDirection() {
+		return direction;
+	}
+
+
+	public void setDirection(String direction) {
+		this.direction = direction;
 	}
 	
 	

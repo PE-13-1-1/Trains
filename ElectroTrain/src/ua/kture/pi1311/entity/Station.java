@@ -11,6 +11,10 @@ public class Station {
 	private List<Train> arrivalTrains;
 	
 	private List<Train> departureTrains;
+	
+	private String direction;
+	
+	
 
 	public Station() {
 	}
@@ -56,6 +60,14 @@ public class Station {
 
 	public void setDepartureTrains(List<Train> departureTrains) {
 		this.departureTrains = departureTrains;
+	}
+
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
 	}
 
 }
