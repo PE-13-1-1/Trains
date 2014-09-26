@@ -2,7 +2,8 @@
 /* DBMS name:      Microsoft SQL Server 2008                    */
 /* Created on:     23.09.2014 22:37:12                          */
 /*==============================================================*/
-
+use KharkovTrain
+go
 
 if exists (select 1
           from sysobjects

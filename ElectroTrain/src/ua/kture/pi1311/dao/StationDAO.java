@@ -4,7 +4,7 @@ import ua.kture.pi1311.entity.Station;
 
 public interface StationDAO {
 	
-	public void insertStation(Station station);
+	public boolean insertStation(Station station);
 	
 	public Station findStation (int stationId);
 	

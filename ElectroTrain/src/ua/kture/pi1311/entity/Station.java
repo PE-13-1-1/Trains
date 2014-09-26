@@ -12,7 +12,7 @@ public class Station {
 	
 	private List<Train> departureTrains;
 	
-	private String direction;
+	private Direction direction;
 	
 	
 
@@ -62,11 +62,11 @@ public class Station {
 		this.departureTrains = departureTrains;
 	}
 
-	public String getDirection() {
+	public Direction getDirection() {
 		return direction;
 	}
 
-	public void setDirection(String direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 
