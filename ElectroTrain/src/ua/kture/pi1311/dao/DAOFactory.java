@@ -13,6 +13,8 @@ public abstract class DAOFactory {
 	
 	public abstract TrainDAO getTrainDAO();
 	
+	public abstract DirectionDAO getDirectionDAO();
+	
 	public static DAOFactory getDAOFactory(int whichFactory) {
 
 		switch (whichFactory) {

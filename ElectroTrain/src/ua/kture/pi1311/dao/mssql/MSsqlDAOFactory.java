@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import ua.kture.pi1311.dao.DAOFactory;
+import ua.kture.pi1311.dao.DirectionDAO;
 import ua.kture.pi1311.dao.StationDAO;
 import ua.kture.pi1311.dao.TrainDAO;
 
@@ -15,8 +16,7 @@ public class MSsqlDAOFactory extends DAOFactory
 		
 	}
 	private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String DB_URL = "jdbc:sqlserver://localhost; instanceName=SQLEXPRESS; database=KharkovTrain;";
-
+	private static final String DB_URL = "jdbc:sqlserver://localhost; instanceName=SQLEXPRESS; database=KharkovTrain;user=sa; password=master;";
 	protected static synchronized Connection getConnection()
 			throws SQLException {
 		Connection con = null;
@@ -38,6 +38,10 @@ public class MSsqlDAOFactory extends DAOFactory
 	@Override
 	public TrainDAO getTrainDAO() {
 		return new MSsqlTrainDAO();
+	}
+	@Override
+	public DirectionDAO getDirectionDAO() {
+		return new MSsqlDirectionDAO();
 	}
 
 }

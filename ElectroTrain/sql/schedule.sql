@@ -100,7 +100,7 @@ go
 /* Table: Direction                                             */
 /*==============================================================*/
 create table Direction (
-   directionId          int                  not null,
+   directionId          int                  identity not null,
    directionTitle       varchar(Max)         not null,
    constraint PK_DIRECTION primary key (directionId)
 )
@@ -110,49 +110,47 @@ go
 /* Table: Station                                               */
 /*==============================================================*/
 create table Station (
-   stationId            int                  not null,
+   stationId            int                  identity not null,
    stationName          nvarchar(Max)        not null,
-   directionId          int                  not null,
+   directionId          int                  REFERENCES Direction (directionId) not null,
    constraint PK_STATION primary key (stationId)
 )
 go
-
-/*==============================================================*/
-/* Table: Stop                                                  */
-/*==============================================================*/
-create table Stop (
-   stationId            int                  null,
-   timeArrival          date                 null,
-   timeDeparture        date                 null,
-   staying              int                  null,
-   stopId               int                  not null,
-   scheduleId           int                  null,
-   constraint PK_STOP primary key (stopId)
-)
-go
-
 /*==============================================================*/
 /* Table: Train                                                 */
 /*==============================================================*/
 create table Train (
-   trainId              int                  not null,
+   trainId              int                  identity not null,
    startPoint           nvarchar(Max)        not null,
    finalPoint           nvarchar(Max)        not null,
    status               tinyint              not null,
-   directionId          int                  not null,
+   directionId          int                  references Direction (directionId) not null,
    trainNumber          int                  not null,
-   scheduleId           int                  null,
    constraint PK_TRAIN primary key (trainId)
 )
 go
+/*==============================================================*/
+/* Table: Stop                                                  */
+/*==============================================================*/
+create table Stop (
+   stationId            int                  REFERENCES Station (stationId) not null,
+   timeArrival          date                 null,
+   timeDeparture        date                 null,
+   staying              int                  null,
+   stopId               int                  identity not null,
+   trainId				int					 not null references Train (trainId),
+   constraint PK_STOP primary key (stopId)
+)
+go
+
 
 /*==============================================================*/
 /* Table: TrainSchedule                                         */
 /*==============================================================*/
 create table TrainSchedule (
-   scheduleId           int                  not null,
-   stopId               int                  null,
-   constraint PK_TRAINSCHEDULE primary key (scheduleId)
+   stopId               int                  references Stop (stopId) unique not null,
+   trainId				int 				 references Train (trainId) not null,
+   constraint PK_TRAINSCHEDULE primary key (stopId)
 )
 go
 
@@ -162,97 +160,16 @@ alter table Station
 go
 
 alter table Stop
-   add constraint FK_STOP_REFERENCE_TRAINSCH foreign key (scheduleId)
-      references TrainSchedule (scheduleId)
-go
-
-alter table Stop
    add constraint FK_STOP_REFERENCE_STATION foreign key (stationId)
       references Station (stationId)
 go
 
-alter table Train
-   add constraint FK_TRAIN_REFERENCE_TRAINSCH foreign key (scheduleId)
-      references TrainSchedule (scheduleId)
+alter table TrainSchedule
+   add constraint FK_TRAINSCHEDULE_REFERENCE_STOP foreign key (stopId)
+      references Stop (stopId)
 go
 
-
-create trigger "CLR Trigger_direction" on Direction  insert as
-external name %Assembly.GeneratedName%.
+alter table TrainSchedule
+   add constraint FK_TRAINSCHEDULE_REFERENCE_TRAIN foreign key (trainId)
+      references Train (trainId)
 go
-
-
-create trigger "CLR Trigger_train" on Train  insert as
-external name %Assembly.GeneratedName%.
-go
-
-
-create trigger ti_train on Train for insert as
-begin
-    declare
-       @numrows  int,
-       @numnull  int,
-       @errno    int,
-       @errmsg   varchar(255)
-
-    select  @numrows = @@rowcount
-    if @numrows = 0
-       return
-
-    /*  Parent "Direction" must exist when inserting a child in "Train"  */
-    if update(directionId)
-    begin
-       if (select count(*)
-           from   Direction t1, inserted t2
-           where  t1.directionId = t2.directionId) != @numrows
-          begin
-             select @errno  = 50002,
-                    @errmsg = 'Parent does not exist in "Direction". Cannot create child in "Train".'
-             goto error
-          end
-    end
-
-    return
-
-/*  Errors handling  */
-error:
-    raiserror @errno @errmsg
-    rollback  transaction
-end
-go
-
-
-create trigger tu_train on Train for update as
-begin
-   declare
-      @numrows  int,
-      @numnull  int,
-      @errno    int,
-      @errmsg   varchar(255)
-
-      select  @numrows = @@rowcount
-      if @numrows = 0
-         return
-
-      /*  Parent "Direction" must exist when updating a child in "Train"  */
-      if update(directionId)
-      begin
-         if (select count(*)
-             from   Direction t1, inserted t2
-             where  t1.directionId = t2.directionId) != @numrows
-            begin
-               select @errno  = 50003,
-                      @errmsg = 'Direction" does not exist. Cannot modify child in "Train".'
-               goto error
-            end
-      end
-
-      return
-
-/*  Errors handling  */
-error:
-    raiserror @errno @errmsg
-    rollback  transaction
-end
-go
-
