@@ -1,6 +1,8 @@
 package ua.kture.pi1311.electrotrain;
 
+import ua.kture.pi1311.sqlite.LocalDataBase;
 import android.support.v7.app.ActionBarActivity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +13,10 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+	    LocalDataBase sqh = new LocalDataBase(this);
+	    SQLiteDatabase sqdb = sqh.getWritableDatabase();
+	    sqdb.close();
+	    sqh.close();
 	}
 
 	@Override
