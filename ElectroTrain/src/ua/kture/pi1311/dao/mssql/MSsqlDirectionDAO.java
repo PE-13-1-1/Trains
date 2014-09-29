@@ -9,7 +9,6 @@ import java.sql.Statement;
 import ua.kture.pi1311.dao.DirectionDAO;
 import ua.kture.pi1311.electrotrain.parametres.MapperParameters;
 import ua.kture.pi1311.entity.Direction;
-import ua.kture.pi1311.entity.Train;
 
 public class MSsqlDirectionDAO implements DirectionDAO{
 	private static final String SQL__FIND_DIRECTION_BY_ID = "SELECT * FROM Direction WHERE directionId=?;";
