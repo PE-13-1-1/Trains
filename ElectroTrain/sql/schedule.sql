@@ -11,7 +11,12 @@ if exists (select 1
           and type = 'TR')
    drop trigger "CLR Trigger_direction"
 go
-
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('URLes')
+            and   type = 'U')
+   drop table URLes
+go
 if exists (select 1
           from sysobjects
           where id = object_id('"CLR Trigger_train"')
@@ -105,7 +110,15 @@ create table Direction (
    constraint PK_DIRECTION primary key (directionId)
 )
 go
-
+/*==============================================================*/
+/* Table: URLes                                                 */
+/*==============================================================*/
+create table URLes (
+   urlId                int                  identity not null,
+   url                  varchar(Max)         unique not null,
+   constraint PK_URLES primary key (urlId)
+)
+go
 /*==============================================================*/
 /* Table: Station                                               */
 /*==============================================================*/
@@ -113,6 +126,7 @@ create table Station (
    stationId            int                  identity not null,
    stationName          nvarchar(Max)        not null,
    directionId          int                  REFERENCES Direction (directionId) not null,
+   urlId				int					 REFERENCES URLes (urlId) not null,
    constraint PK_STATION primary key (stationId)
 )
 go
@@ -126,6 +140,7 @@ create table Train (
    status               tinyint              not null,
    directionId          int                  references Direction (directionId) not null,
    trainNumber          int                  not null,
+   urlId				int					 REFERENCES URLes (urlId) not null,
    constraint PK_TRAIN primary key (trainId)
 )
 go
@@ -172,4 +187,14 @@ go
 alter table TrainSchedule
    add constraint FK_TRAINSCHEDULE_REFERENCE_TRAIN foreign key (trainId)
       references Train (trainId)
+go
+
+alter table Station
+   add constraint "FK_STATION_THE URLES REFERENCE" foreign key (urlId)
+      references URLes (urlId)
+go
+
+alter table Train
+   add constraint "FK_TRAIN_THE URL" foreign key foreign key (urlId)
+      references URLes (urlId)
 go

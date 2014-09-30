@@ -18,6 +18,8 @@ public class Train {
 	
 	private int trainNumber;
 	
+	private int urlId;
+	
 	public Train() {
 		
 	}
@@ -94,6 +96,16 @@ public class Train {
 	public void setTrainNumber(int trainNumber) {
 		this.trainNumber = trainNumber;
 	}
-	
-	
+
+
+	public int getUrlId() {
+		return urlId;
+	}
+
+
+	public void setUrlId(int urlId) {
+		this.urlId = urlId;
+	}
+
+
 }

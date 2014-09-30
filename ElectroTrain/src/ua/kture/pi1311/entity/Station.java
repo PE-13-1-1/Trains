@@ -14,7 +14,7 @@ public class Station {
 	
 	private Direction direction;
 	
-	
+	private int urlId;
 
 	public Station() {
 	}
@@ -68,6 +68,14 @@ public class Station {
 
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+	}
+
+	public int getUrlId() {
+		return urlId;
+	}
+
+	public void setUrlId(int urlId) {
+		this.urlId = urlId;
 	}
 
 }
