@@ -1,4 +1,4 @@
-package com.nikosamples.develop.smp0001navigationdrawertabs.fragments;
+package fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,19 +12,19 @@ import android.widget.TextView;
 import ua.kture.pi1311.electrotrain.R;
 import view.SlidingTabLayout;
 
-public class ScreenOne extends Fragment {
+public class Activity_Fav_withtabs extends Fragment {
 
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
 
-    public ScreenOne() {
+    public Activity_Fav_withtabs() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.screen_first, container, false);
+        View rootView = inflater.inflate(R.layout.activity_fav_withtabs, container, false);
 
         return rootView;
     }
@@ -49,7 +49,7 @@ public class ScreenOne extends Fragment {
          */
         @Override
         public int getCount() {
-            return 10;
+            return 2;
         }
 
         /**

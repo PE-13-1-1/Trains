@@ -1,8 +1,13 @@
 package ua.kture.pi1311.electrotrain;
 
-import com.nikosamples.develop.smp0001navigationdrawertabs.fragments.ScreenOne;
-import com.nikosamples.develop.smp0001navigationdrawertabs.fragments.ScreenThree;
-import com.nikosamples.develop.smp0001navigationdrawertabs.fragments.ScreenTwo;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import fragments.Activity_About;
+import fragments.Activity_Fav;
+import fragments.Activity_Search;
+import fragments.Activity_Settings;
 
 import ua.kture.pi1311.sqlite.LocalDataBase;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -24,7 +30,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
@@ -37,10 +47,13 @@ public class MainActivity extends ActionBarActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     
+    
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+        
 		mTitle = mDrawerTitle = getTitle();
         mScreenTitles = getResources().getStringArray(R.array.screen_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -72,6 +85,7 @@ public class MainActivity extends ActionBarActivity {
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(mDrawerTitle);
             	supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            	
             }
         };
 
@@ -88,7 +102,7 @@ public class MainActivity extends ActionBarActivity {
 	    sqdb.close();
 	    sqh.close();
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -137,14 +151,16 @@ public class MainActivity extends ActionBarActivity {
         Fragment fragment = null;
         switch (position) {
         case 0:
-            fragment = new ScreenOne();
+            fragment = new Activity_Fav();
             break;
         case 1:
-            fragment = new ScreenTwo();
+        	fragment = new Activity_Search();
             break;
         case 2:
-        	fragment = new ScreenThree();
+        	fragment = new Activity_Settings();
             break;
+        case 3:
+        	fragment = new Activity_About();
         default:
             break;
         }
@@ -159,6 +175,7 @@ public class MainActivity extends ActionBarActivity {
     	    mDrawerList.setItemChecked(position, true);
     	    setTitle(mScreenTitles[position]);
     	    mDrawerLayout.closeDrawer(mDrawerList);
+    	    
         } else {
             // Error
             Log.e(this.getClass().getName(), "Error. Fragment is not created");
