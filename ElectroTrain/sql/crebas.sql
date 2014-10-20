@@ -133,7 +133,8 @@ create table Train (
    finalPoint           nvarchar(Max)        not null,
    status               tinyint              not null,
    trainNumber          int                  not null,
-   scheduleId           int                  null,
+   trainURL             nvarchar(Max)        not null,
+   scheduleId           int                  not null,
    constraint PK_TRAIN primary key (trainId)
 )
 go

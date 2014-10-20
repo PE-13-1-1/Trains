@@ -16,8 +16,8 @@ import ua.kture.pi1311.electrotrain.parametres.MapperParameters;
 public class MSsqlStationDAO implements StationDAO{
 
 	private static final String SQL__FIND_STATION_BY_ID = "SELECT * FROM Station WHERE stationId=?;";
-	private static final String SQL__UPDATE_STATION = "UPDATE Station SET [stationName]=?, [directionId]=? WHERE [stationId]=?;";
-	private static final String SQL__INSERT_STATION = "INSERT INTO Station (stationName, directionId) VALUES (?, ?);";
+	private static final String SQL__UPDATE_STATION = "UPDATE Station SET [stationName]=?, [stationURL]=? WHERE [stationId]=?;";
+	private static final String SQL__INSERT_STATION = "INSERT INTO Station (stationName, stationURL) VALUES (?, ?);";
 	private static final String SQL__DELETE_STATION = "DELETE FROM Station WHERE stationId=?";
 	DirectionDAO directionDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
 			.getDirectionDAO(); 
@@ -142,12 +142,12 @@ public class MSsqlStationDAO implements StationDAO{
 	private void mapStationForInsert(Station station, PreparedStatement pstmt)
 			throws SQLException {
 		pstmt.setString(1, station.getStationName());
-		pstmt.setInt(2, station.getDirection().getDirectionId());
+		pstmt.setString(2, station.getStationURL());
 	}
 	private Station unMapStation(ResultSet rs) throws SQLException {
 		Station station = new Station();
 		station.setStationId(rs.getInt(MapperParameters.STATION_ID));
-		station.setDirection(directionDAO.findDirection(rs.getInt(MapperParameters.STATION_DIRECTION_ID)));
+		station.setStationURL(rs.getString(MapperParameters.STATION_URL));
 		station.setStationName(rs.getString(MapperParameters.STATION_NAME));
 		return station;
 	}

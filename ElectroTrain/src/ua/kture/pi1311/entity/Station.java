@@ -11,10 +11,8 @@ public class Station {
 	private List<Train> arrivalTrains;
 	
 	private List<Train> departureTrains;
-	
-	private Direction direction;
-	
-	private int urlId;
+		
+	private String stationURL;
 
 	public Station() {
 	}
@@ -62,20 +60,13 @@ public class Station {
 		this.departureTrains = departureTrains;
 	}
 
-	public Direction getDirection() {
-		return direction;
+	public String getStationURL() {
+		return stationURL;
 	}
 
-	public void setDirection(Direction direction) {
-		this.direction = direction;
+	public void setStationURL(String stationURL) {
+		this.stationURL = stationURL;
 	}
 
-	public int getUrlId() {
-		return urlId;
-	}
-
-	public void setUrlId(int urlId) {
-		this.urlId = urlId;
-	}
-
+	
 }

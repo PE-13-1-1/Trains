@@ -13,9 +13,9 @@ import ua.kture.pi1311.entity.Train;
 public class MSsqlTrainDAO implements TrainDAO {
 	private static final String SQL__FIND_TRAIN_BY_ID = "SELECT * FROM Train WHERE trainId=?;";
 	private static final String SQL__UPDATE_TRAIN = "UPDATE Train SET [startPoint]=?, [startPoint]=?, [status]=?,"
-			+ "[directionId]=?, [trainNumber]=? WHERE [trainId]=?;";
+			+ "[trainNumber]=?,[trainURL]=?, [scheduleId]=? WHERE [trainId]=?;";
 	private static final String SQL__INSERT_TRAIN = "INSERT INTO Train (startPoint, startPoint, status, "
-			+ "directionId, trainNumber) VALUES (?, ?, ?, ?, ?);";
+			+ "trainNumber,trainURL,scheduleId) VALUES (?, ?, ?, ?, ?,?);";
 	private static final String SQL__DELETE_TRAIN = "DELETE FROM Train WHERE trainId=?";
 
 	public boolean insertTrain(Train train) {
@@ -176,8 +176,9 @@ public class MSsqlTrainDAO implements TrainDAO {
 		pstmt.setString(1, train.getStartPoint());
 		pstmt.setString(2, train.getFinalPoint());
 		pstmt.setInt(3, train.getStatus());
-		pstmt.setInt(4, train.getDirection().getDirectionId());
-		pstmt.setInt(5, train.getTrainNumber());
+		pstmt.setInt(4, train.getTrainNumber());
+		pstmt.setString(5, train.getTrainUrl());
+		pstmt.setInt(6, train.getScheduleId());
 	}
 	private Train unMapTrain(ResultSet rs) throws SQLException {
 		Train train = new Train();
@@ -186,6 +187,8 @@ public class MSsqlTrainDAO implements TrainDAO {
 		train.setTrainId(rs.getInt(MapperParameters.TRAIN_ID));
 		train.setStatus(rs.getInt(MapperParameters.TRAIN_STATUS));
 		train.setTrainNumber(rs.getInt(MapperParameters.TRAIN_NUMBER));
+		train.setScheduleId(rs.getInt(MapperParameters.SCHEDULE_ID));
+		train.setTrainUrl(rs.getString(MapperParameters.TRAIN_URL));
 		return train;
 	}
 }
