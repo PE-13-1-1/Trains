@@ -175,7 +175,7 @@ public class MSsqlTrainDAO implements TrainDAO {
 			throws SQLException {
 		pstmt.setString(1, train.getStartPoint());
 		pstmt.setString(2, train.getFinalPoint());
-		pstmt.setInt(3, train.getStatus());
+		pstmt.setString(3, train.getStatus());
 		pstmt.setInt(4, train.getTrainNumber());
 		pstmt.setString(5, train.getTrainUrl());
 		pstmt.setInt(6, train.getScheduleId());
@@ -185,7 +185,7 @@ public class MSsqlTrainDAO implements TrainDAO {
 		train.setStartPoint(rs.getString(MapperParameters.TRAIN_START_POINT));
 		train.setFinalPoint(rs.getString(MapperParameters.TRAIN_FINAL_POINT));
 		train.setTrainId(rs.getInt(MapperParameters.TRAIN_ID));
-		train.setStatus(rs.getInt(MapperParameters.TRAIN_STATUS));
+		train.setStatus(rs.getString(MapperParameters.TRAIN_STATUS));
 		train.setTrainNumber(rs.getInt(MapperParameters.TRAIN_NUMBER));
 		train.setScheduleId(rs.getInt(MapperParameters.SCHEDULE_ID));
 		train.setTrainUrl(rs.getString(MapperParameters.TRAIN_URL));

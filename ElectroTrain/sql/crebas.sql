@@ -94,7 +94,7 @@ go
 /* Table: Station                                               */
 /*==============================================================*/
 create table Station (
-   stationId            int                  not null,
+   stationId            int                  identity not null,
    stationName          nvarchar(Max)        not null,
    stationURL           nvarchar(Max)        not null,
    constraint PK_STATION primary key (stationId)
@@ -105,7 +105,7 @@ go
 /* Table: StationList                                           */
 /*==============================================================*/
 create table StationList (
-   listId               int                  not null,
+   listId               int                  identity not null,
    constraint PK_STATIONLIST primary key (listId)
 )
 go
@@ -119,7 +119,7 @@ create table Stop (
    timeDeparture        date                 null,
    staying              int                  null,
    stopId               int                  identity  not null,
-   listId               int                  not null,
+   listId               int                  null,
    constraint PK_STOP primary key (stopId)
 )
 go
@@ -131,10 +131,10 @@ create table Train (
    trainId              int                  identity not null,
    startPoint           nvarchar(Max)        not null,
    finalPoint           nvarchar(Max)        not null,
-   status               tinyint              not null,
+   status               nvarchar(Max)		 not null,
    trainNumber          int                  not null,
    trainURL             nvarchar(Max)        not null,
-   scheduleId           int                  not null,
+   scheduleId           int                  null,
    constraint PK_TRAIN primary key (trainId)
 )
 go
