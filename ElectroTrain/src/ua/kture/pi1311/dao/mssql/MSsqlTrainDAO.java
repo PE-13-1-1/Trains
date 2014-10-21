@@ -12,9 +12,9 @@ import ua.kture.pi1311.entity.Train;
 
 public class MSsqlTrainDAO implements TrainDAO {
 	private static final String SQL__FIND_TRAIN_BY_ID = "SELECT * FROM Train WHERE trainId=?;";
-	private static final String SQL__UPDATE_TRAIN = "UPDATE Train SET [startPoint]=?, [startPoint]=?, [status]=?,"
+	private static final String SQL__UPDATE_TRAIN = "UPDATE Train SET [startPoint]=?, [finalPoint]=?, [status]=?,"
 			+ "[trainNumber]=?,[trainURL]=?, [scheduleId]=? WHERE [trainId]=?;";
-	private static final String SQL__INSERT_TRAIN = "INSERT INTO Train (startPoint, startPoint, status, "
+	private static final String SQL__INSERT_TRAIN = "INSERT INTO Train (startPoint, finalPoint, status, "
 			+ "trainNumber,trainURL,scheduleId) VALUES (?, ?, ?, ?, ?,?);";
 	private static final String SQL__DELETE_TRAIN = "DELETE FROM Train WHERE trainId=?";
 

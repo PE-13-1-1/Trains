@@ -148,7 +148,7 @@ create table TrainSchedule (
    constraint PK_TRAINSCHEDULE primary key (scheduleId)
 )
 go
-
+/*
 alter table Stop
    add constraint FK_STOP_REFERENCE_STATIONL foreign key (listId)
       references StationList (listId)
@@ -168,4 +168,4 @@ alter table TrainSchedule
    add constraint FK_TRAINSCH_REFERENCE_STATIONL foreign key (listId)
       references StationList (listId)
 go
-
+*/
