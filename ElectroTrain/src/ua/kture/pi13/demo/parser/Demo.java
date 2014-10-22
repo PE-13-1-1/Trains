@@ -2,6 +2,7 @@ package ua.kture.pi13.demo.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,12 +17,14 @@ import org.jsoup.select.Elements;
 import ua.kture.pi1311.dao.DAOFactory;
 import ua.kture.pi1311.dao.StationDAO;
 import ua.kture.pi1311.dao.TrainDAO;
+import ua.kture.pi1311.entity.Station;
 import ua.kture.pi1311.entity.Train;
 
 public class Demo {
 
-	private static Set<String> stations = new HashSet<String>();
-	private static Set<String> stationsURL = new HashSet<String>();
+	private static List<String> stations = new ArrayList<String>();
+	private static List<String> stationsURL = new ArrayList<String>();
+	private static Map<String,String> stationToURL = new HashMap<String,String>();
 	
 	private static List<Integer> getTrainNumbers(Elements links) {
 		List<Integer> list = new ArrayList<Integer>();
@@ -161,12 +164,38 @@ public class Demo {
 			String url = "http://www.pz.gov.ua/prrasp/" + iterator.next();
 			parseStationPage(url);
 		}
-
+		makeStationToDB();
 	}
 
+//	private static void parseStationPage(String url) {
+//		StationDAO stationDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
+//				.getStationDAO();
+//		Document doc;
+//		try {
+//			doc = Jsoup.connect(url).get();
+//			Elements links = doc.getElementsByClass("bs1t");
+//			Set<String> set = getURLS(links, 2);
+//			Set<String> newSet1 = new HashSet<String>();
+//			Iterator<String> iterator = set.iterator();
+//			while (iterator.hasNext()) {
+//				String string = iterator.next();
+//				newSet1.add((String) string.subSequence(string.indexOf("('")+2, string.indexOf("')\"")));
+//			}
+//			Set<String> stations1 = getStationNames(links);
+//			stations.addAll(stations1);
+//			stationsURL.addAll(newSet1);
+//			if (stations.size() !=stationsURL.size() ) {
+//				System.out.println(url);
+//				while (stations.size() != stationsURL.size()) {
+//					stations.add("Blah");
+//				}
+//			}
+//		} catch (IOException e) {
+//			System.out.println(e.getMessage());
+//		}
+//
+//	}
 	private static void parseStationPage(String url) {
-		StationDAO stationDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
-				.getStationDAO();
 		Document doc;
 		try {
 			doc = Jsoup.connect(url).get();
@@ -179,13 +208,33 @@ public class Demo {
 				newSet1.add((String) string.subSequence(string.indexOf("('")+2, string.indexOf("')\"")));
 			}
 			Set<String> stations1 = getStationNames(links);
-			stations.addAll(stations1);
-			stationsURL.addAll(newSet1);
-
+			if (stations1.size() == newSet1.size() ) {
+				stations.addAll(stations1);
+				stationsURL.addAll(newSet1);
+			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 
+	}
+	private static void makeStationToDB() {
+		StationDAO stationDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
+				.getStationDAO();
+		stationDAO.truncateStation();
+		for (int i = 0;i < stations.size();i++) {
+			stationToURL.put(stations.get(i), stationsURL.get(i));
+		}
+		Set<String> keySet = stationToURL.keySet();
+		Iterator<String> iterator = keySet.iterator();
+		while (iterator.hasNext()) {
+			String element = iterator.next();
+			String adressURL = stationToURL.get(element);
+			Station station = new Station();
+			station.setStationName(element);
+			station.setStationURL(adressURL);
+			stationDAO.insertStation(station);
+		}
+		
 	}
 	private static Set<String> getStationNames(Elements links) {
 		Set<String> list = new HashSet<String>();
