@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 import ua.kture.pi1311.dao.TrainDAO;
 import ua.kture.pi1311.electrotrain.parametres.MapperParameters;
@@ -17,7 +19,9 @@ public class MSsqlTrainDAO implements TrainDAO {
 	private static final String SQL__INSERT_TRAIN = "INSERT INTO Train (startPoint, finalPoint, status, "
 			+ "trainNumber,trainURL,scheduleId) VALUES (?, ?, ?, ?, ?,?);";
 	private static final String SQL__DELETE_TRAIN = "DELETE FROM Train WHERE trainId=?";
-
+	private static final String SQL_TRUNCATE_TRAIN = "USE KharkovTrain;TRUNCATE TABLE dbo.Train; ";
+	private static final String SQL_GET_TRAIN_URL = "SELECT trainURL FROM KharkovTrain.dbo.Train";
+	
 	public boolean insertTrain(Train train) {
 		Connection con = null;
 		boolean result = false;
@@ -35,6 +39,7 @@ public class MSsqlTrainDAO implements TrainDAO {
 		}
 		return result;
 	}
+
 	public boolean insertTrain(Connection con, Train train) throws SQLException {
 		PreparedStatement pstmt = null;
 		boolean result = true;
@@ -73,6 +78,7 @@ public class MSsqlTrainDAO implements TrainDAO {
 		}
 		return train;
 	}
+
 	private Train findTrain(Connection con, int trainId) throws SQLException {
 		PreparedStatement pstmt = null;
 		Train train = null;
@@ -112,7 +118,9 @@ public class MSsqlTrainDAO implements TrainDAO {
 		}
 		return updateResult;
 	}
-	private boolean updateTrain(Connection con, Train train) throws SQLException {
+
+	private boolean updateTrain(Connection con, Train train)
+			throws SQLException {
 		boolean result;
 		PreparedStatement pstmt = null;
 		try {
@@ -151,6 +159,7 @@ public class MSsqlTrainDAO implements TrainDAO {
 		}
 		return result;
 	}
+
 	private void deleteTrain(long id, Connection con) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
@@ -171,7 +180,45 @@ public class MSsqlTrainDAO implements TrainDAO {
 		}
 
 	}
-	private void mapTrainForInsert (Train train, PreparedStatement pstmt)
+	public boolean truncateTrain() {
+		Connection con = null;
+		Boolean result = false;
+		try {
+			con = MSsqlDAOFactory.getConnection();
+			truncateTrain(con);
+			result = true;
+		} catch (SQLException e) {
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return result;
+	}
+
+	private void truncateTrain(Connection con) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(SQL_TRUNCATE_TRAIN);
+			pstmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					throw e;
+				}
+			}
+		}
+
+	}
+
+	private void mapTrainForInsert(Train train, PreparedStatement pstmt)
 			throws SQLException {
 		pstmt.setString(1, train.getStartPoint());
 		pstmt.setString(2, train.getFinalPoint());
@@ -180,6 +227,7 @@ public class MSsqlTrainDAO implements TrainDAO {
 		pstmt.setString(5, train.getTrainUrl());
 		pstmt.setInt(6, train.getScheduleId());
 	}
+
 	private Train unMapTrain(ResultSet rs) throws SQLException {
 		Train train = new Train();
 		train.setStartPoint(rs.getString(MapperParameters.TRAIN_START_POINT));
@@ -190,5 +238,45 @@ public class MSsqlTrainDAO implements TrainDAO {
 		train.setScheduleId(rs.getInt(MapperParameters.SCHEDULE_ID));
 		train.setTrainUrl(rs.getString(MapperParameters.TRAIN_URL));
 		return train;
+	}
+
+	@Override
+	public Set<String> getTrainURL() {
+		Connection con = null;
+		Set<String> urles = null;
+		try {
+			con = MSsqlDAOFactory.getConnection();
+			urles = getTrainURL(con);
+		} catch (SQLException e) {
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return urles;
+	}
+	private Set<String> getTrainURL(Connection con) throws SQLException {
+		PreparedStatement pstmt = null;
+		 Set<String> urles = new HashSet<String>();
+		try {
+			pstmt = con.prepareStatement(SQL_GET_TRAIN_URL);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String s = rs.getString("trainURL");
+				urles.add(s);
+			}
+			return urles;
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
 	}
 }

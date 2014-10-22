@@ -14,24 +14,29 @@ import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 
 import ua.kture.pi1311.dao.DAOFactory;
+import ua.kture.pi1311.dao.StationDAO;
 import ua.kture.pi1311.dao.TrainDAO;
 import ua.kture.pi1311.entity.Train;
 
 public class Demo {
 
+	private static Set<String> stations = new HashSet<String>();
+	private static Set<String> stationsURL = new HashSet<String>();
+	
 	private static List<Integer> getTrainNumbers(Elements links) {
 		List<Integer> list = new ArrayList<Integer>();
 		for (Element link : links) {
 			Elements elems = link.getElementsByTag("td");
-			int count =0;
-			for (int i=0;i<elems.size();i++) {
-				if (count==0)
+			int count = 0;
+			for (int i = 0; i < elems.size(); i++) {
+				if (count == 0)
 					list.add(Integer.parseInt(elems.get(0).text()));
 				count++;
 			}
 		}
 		return list;
 	}
+
 	private static List<String> getPoints(Elements links) {
 		List<String> list = new ArrayList<String>();
 		for (Element link : links) {
@@ -45,7 +50,7 @@ public class Demo {
 		return list;
 	}
 
-	private static Set<String> getURLS(Elements links) {
+	private static Set<String> getURLS(Elements links, int whichObject) {
 		List<String> set = new ArrayList<String>();
 		Set<String> mainSet = new HashSet<String>();
 		for (Element link : links) {
@@ -60,8 +65,14 @@ public class Demo {
 			}
 		}
 		for (String element : set) {
-			mainSet.add((String) element.subSequence(
-					element.indexOf("rasptrain"), element.indexOf("train") + 20));
+			if (whichObject == 1) {
+				mainSet.add((String) element.subSequence(
+						element.indexOf("rasptrain"),
+						element.indexOf("train") + 20));
+			} else if (whichObject == 2) {
+				mainSet.add((String) element.subSequence(
+						element.indexOf("rrep"), element.indexOf("onmouseover")));
+			}
 		}
 		return mainSet;
 	}
@@ -87,28 +98,35 @@ public class Demo {
 		return map;
 	}
 
-	private static void insertTrain(Train train) {
-		TrainDAO trainDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
-				.getTrainDAO();
+	private static void insertTrain(TrainDAO trainDAO, Train train) {
 		trainDAO.insertTrain(train);
 	}
 
-	private static void parsePage() {
+	private static void parseTrainPage() {
+		TrainDAO trainDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
+				.getTrainDAO();
+		trainDAO.truncateTrain();
 		Document doc;
 		try {
 			doc = Jsoup.connect("http://www.pz.gov.ua/prrasp/s_khar1.php")
 					.get();
 			Elements links = doc.getElementsByClass("bs1t");
-			Set<String> set = getURLS(links);
-			Map<Integer,String> map = getImages(links);
+			Set<String> set = getURLS(links, 1);
+			Map<Integer, String> map = getImages(links);
 			List<String> list = getPoints(links);
 			Set<Integer> ints = map.keySet();
 			List<Integer> intList = getTrainNumbers(links);
-			for (int i = 0; i<set.size();i++) {
+			for (int i = 0; i < set.size(); i++) {
 				Train train = new Train();
-				train.setScheduleId(i+1);
-				train.setStartPoint(list.get(i).split("-")[0]);
-				train.setFinalPoint(list.get(i).split("-")[1]);
+				train.setScheduleId(i + 1);
+				train.setTrainId(i + 2);
+				if (list.get(i).split("-").length > 2) {
+					train.setStartPoint(list.get(i).split("-")[0]);
+					train.setFinalPoint(list.get(i).split("-")[2]);
+				} else {
+					train.setStartPoint(list.get(i).split("-")[0]);
+					train.setFinalPoint(list.get(i).split("-")[1]);
+				}
 				train.setTrainUrl((String) set.toArray()[i]);
 				if (ints.contains(i)) {
 					Iterator<Integer> iterator = ints.iterator();
@@ -119,23 +137,71 @@ public class Demo {
 							train.setStatus(status);
 						}
 					}
-				}
-				else {
+				} else {
 					train.setStatus("Каждый день");
 				}
 				train.setTrainNumber(intList.get(i));
-				insertTrain(train);
+				insertTrain(trainDAO, train);
 			}
 			System.out.println("Code 0");
-			
+
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 
 	}
 
-	public static void main(String[] args) {
-		parsePage();
+
+	private static void LetsWorkWithStations() {
+		TrainDAO trainDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
+				.getTrainDAO();
+		Set<String> set = trainDAO.getTrainURL();
+		Iterator<String> iterator = set.iterator();
+		while (iterator.hasNext()) {
+			String url = "http://www.pz.gov.ua/prrasp/" + iterator.next();
+			parseStationPage(url);
+		}
+
 	}
 
+	private static void parseStationPage(String url) {
+		StationDAO stationDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
+				.getStationDAO();
+		Document doc;
+		try {
+			doc = Jsoup.connect(url).get();
+			Elements links = doc.getElementsByClass("bs1t");
+			Set<String> set = getURLS(links, 2);
+			Set<String> newSet1 = new HashSet<String>();
+			Iterator<String> iterator = set.iterator();
+			while (iterator.hasNext()) {
+				String string = iterator.next();
+				newSet1.add((String) string.subSequence(string.indexOf("('")+2, string.indexOf("')\"")));
+			}
+			Set<String> stations1 = getStationNames(links);
+			stations.addAll(stations1);
+			stationsURL.addAll(newSet1);
+
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+	private static Set<String> getStationNames(Elements links) {
+		Set<String> list = new HashSet<String>();
+		for (Element link : links) {
+			int count = 0;
+			Elements elems = link.getElementsByTag("td");
+			for (Element element : elems) {
+				if(count ==0)
+					list.add(element.text());
+				count++;
+			}
+		}
+		return list;
+	}
+	public static void main(String[] args) {
+		// parsePage();
+		LetsWorkWithStations();
+	}
 }
