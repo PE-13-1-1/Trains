@@ -12,13 +12,13 @@ public class Train {
 	
 	private List<Station> stations;
 	
-	private Direction direction;
-	
-	private int status;
+	private String status;
 	
 	private int trainNumber;
 	
-	private int urlId;
+	private String trainUrl;
+	
+	private int scheduleId;
 	
 	public Train() {
 		
@@ -68,22 +68,12 @@ public class Train {
 	}
 
 
-	public Direction getDirection() {
-		return direction;
-	}
-
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
-
-
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -98,13 +88,23 @@ public class Train {
 	}
 
 
-	public int getUrlId() {
-		return urlId;
+	public String getTrainUrl() {
+		return trainUrl;
 	}
 
 
-	public void setUrlId(int urlId) {
-		this.urlId = urlId;
+	public void setTrainUrl(String trainUrl) {
+		this.trainUrl = trainUrl;
+	}
+
+
+	public int getScheduleId() {
+		return scheduleId;
+	}
+
+
+	public void setScheduleId(int scheduleId) {
+		this.scheduleId = scheduleId;
 	}
 
 

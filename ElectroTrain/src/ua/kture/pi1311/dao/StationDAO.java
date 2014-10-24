@@ -11,4 +11,6 @@ public interface StationDAO {
 	public boolean updateStation (Station station);
 	
 	public boolean deleteStation (int stationId);
+	
+	public boolean truncateStation();
 }
