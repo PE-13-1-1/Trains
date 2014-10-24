@@ -2,6 +2,8 @@ package ua.kture.pi1311.electrotrain;
 
 import fragments.Activity_About;
 import fragments.Activity_Fav;
+import fragments.Activity_Search_Stations;
+import fragments.Activity_Search_Ways;
 import fragments.Activity_Settings;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -25,9 +27,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         public android.support.v4.app.Fragment getItem(int position) {
             switch (position) {
             case 0: // Fragment # 0 - This will show FirstFragment
-                return new Activity_Settings();
+                return new Activity_Search_Stations();
             case 1: // Fragment # 0 - This will show FirstFragment different title
-                return new Activity_Fav();
+                return new Activity_Search_Ways();
             
             default:
                 return null;

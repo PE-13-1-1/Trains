@@ -3,79 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TabHost
-        android:id="@android:id/tabhost"
+    <android.support.v4.view.ViewPager
+   android:id="@+id/vpPager"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content">
+
+   <android.support.v4.view.PagerTabStrip
+        android:id="@+id/pager_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </TabWidget>
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <RelativeLayout
-                    android:id="@+id/tab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="40dp"
-                        android:ems="10"
-                        android:background="#EC7703"
-                        android:hint="type UR MAMASHA" />
-
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/autoCompleteTextView1"
-                        android:layout_below="@+id/autoCompleteTextView1"
-                        android:layout_marginTop="52dp"
-                        android:ems="10" />
-                    
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-
-                    <AutoCompleteTextView
-                        android:id="@+id/search_way1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <requestFocus />
-                    </AutoCompleteTextView>
-                    <AutoCompleteTextView
-                        android:id="@+id/search_way2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                    </AutoCompleteTextView>
-                </RelativeLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+</android.support.v4.view.ViewPager>
 
 </RelativeLayout>

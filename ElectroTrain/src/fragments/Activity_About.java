@@ -12,7 +12,6 @@ import ua.kture.pi1311.electrotrain.MyPagerAdapter;
 import ua.kture.pi1311.electrotrain.R;
 
 public class Activity_About extends Fragment {
-	FragmentPagerAdapter adapterViewPager;
     public Activity_About() {
     }
 
@@ -22,9 +21,6 @@ public class Activity_About extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_about, container,
                 false);
-        ViewPager vpPager = (ViewPager) rootView.findViewById(R.id.vpPager);
-        adapterViewPager = new MyPagerAdapter(this.getActivity().getSupportFragmentManager());
-        vpPager.setAdapter(adapterViewPager);
         return rootView;
     }
 

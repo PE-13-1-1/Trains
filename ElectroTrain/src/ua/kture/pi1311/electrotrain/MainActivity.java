@@ -7,6 +7,7 @@ import java.util.List;
 import fragments.Activity_About;
 import fragments.Activity_Fav;
 import fragments.Activity_Search;
+import fragments.Activity_Search_Stations;
 import fragments.Activity_Settings;
 
 import ua.kture.pi1311.sqlite.LocalDataBase;
