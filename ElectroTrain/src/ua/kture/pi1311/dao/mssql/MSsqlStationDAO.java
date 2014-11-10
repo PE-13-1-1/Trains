@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import ua.kture.pi1311.dao.DAOFactory;
 import ua.kture.pi1311.dao.DirectionDAO;
@@ -20,6 +21,8 @@ public class MSsqlStationDAO implements StationDAO{
 	private static final String SQL__INSERT_STATION = "INSERT INTO Station (stationName, stationURL) VALUES (?, ?);";
 	private static final String SQL__DELETE_STATION = "DELETE FROM Station WHERE stationId=?";
 	private static final String SQL_TRUNCATE_STATION = "USE KharkovTrain;TRUNCATE TABLE dbo.Station";
+	private static final String SQL_FIND_ALL_STATIONS = "SELECT * FROM dbo.Station";
+	
 	DirectionDAO directionDAO = DAOFactory.getDAOFactory(DAOFactory.MSSQL)
 			.getDirectionDAO(); 
 	public boolean insertStation(Station station) {
@@ -139,7 +142,46 @@ public class MSsqlStationDAO implements StationDAO{
 			}
 		}
 	}
-	
+	public ArrayList<Station> findAllStations() {
+		Connection con = null;
+		ArrayList<Station> stations = new ArrayList<Station>();
+		try {
+			con = MSsqlDAOFactory.getConnection();
+			stations = findStation(con);
+		} catch (SQLException e) {
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return stations;
+	}
+
+	private ArrayList<Station> findStation(Connection con) throws SQLException {
+		PreparedStatement pstmt = null;
+		ArrayList<Station> stations = new ArrayList<Station>();
+		Station station = null;
+		try {
+			pstmt = con.prepareStatement(SQL_FIND_ALL_STATIONS);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				station = unMapStation(rs);
+				stations.add(station);
+			}
+			return stations;
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
 	private void mapStationForInsert(Station station, PreparedStatement pstmt)
 			throws SQLException {
 		pstmt.setString(1, station.getStationName());

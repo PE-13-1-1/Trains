@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ public class MSsqlTrainDAO implements TrainDAO {
 	private static final String SQL__DELETE_TRAIN = "DELETE FROM Train WHERE trainId=?";
 	private static final String SQL_TRUNCATE_TRAIN = "USE KharkovTrain;TRUNCATE TABLE dbo.Train; ";
 	private static final String SQL_GET_TRAIN_URL = "SELECT trainURL FROM KharkovTrain.dbo.Train";
+	private static final String SQL_SELECT_ALL_TRAINS = "SELECT * FROM KharkovTrain.dbo.Train";
 	
 	public boolean insertTrain(Train train) {
 		Connection con = null;
@@ -101,7 +103,46 @@ public class MSsqlTrainDAO implements TrainDAO {
 			}
 		}
 	}
+	public ArrayList<Train> findAllTrains() {
+		Connection con = null;
+		ArrayList<Train> trains = new ArrayList<Train>();
+		try {
+			con = MSsqlDAOFactory.getConnection();
+			trains = findAllTrains(con);
+		} catch (SQLException e) {
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return trains;
+	}
 
+	private ArrayList<Train> findAllTrains(Connection con) throws SQLException {
+		PreparedStatement pstmt = null;
+		Train train = null;
+		ArrayList<Train> trains = new ArrayList<Train>();
+		try {
+			pstmt = con.prepareStatement(SQL_SELECT_ALL_TRAINS);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				train = unMapTrain(rs);
+				trains.add(train);
+			}
+			return trains;
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
 	public boolean updateTrain(Train train) {
 		Connection con = null;
 		boolean updateResult = false;
