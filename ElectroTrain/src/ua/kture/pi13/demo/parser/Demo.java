@@ -382,6 +382,7 @@ public class Demo {
 //		}
 //		CheckTrains();
 //		LetsWorkWithStations();
+		ParseStops.ALaMain();
 		System.out.println("Code 0");
 	}
 }

@@ -15,6 +15,8 @@ public abstract class DAOFactory {
 	
 	public abstract DirectionDAO getDirectionDAO();
 	
+	public abstract StopDAO getStopDAO();
+	
 	public static DAOFactory getDAOFactory(int whichFactory) {
 
 		switch (whichFactory) {

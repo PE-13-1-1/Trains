@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import ua.kture.pi1311.dao.DAOFactory;
 import ua.kture.pi1311.dao.DirectionDAO;
 import ua.kture.pi1311.dao.StationDAO;
+import ua.kture.pi1311.dao.StopDAO;
 import ua.kture.pi1311.dao.TrainDAO;
 
 
@@ -42,6 +43,10 @@ public class MSsqlDAOFactory extends DAOFactory
 	@Override
 	public DirectionDAO getDirectionDAO() {
 		return new MSsqlDirectionDAO();
+	}
+	@Override
+	public StopDAO getStopDAO() {
+		return new MSsqlStopDAO();
 	}
 
 }

@@ -16,4 +16,14 @@ public interface MapperParameters {
 	//Direction mapper parametres
 		public static final String DIRECTION_ID ="directionId";
 		public static final String DIRECTION_TITLE ="directionTitle";
+	//Stop mapper parametres
+		public static final String STOP_ID ="stopId";
+		public static final String STOP_TIME_ARRIVAL ="timeArrival";
+		public static final String STOP_TIME_DEPARTURE ="timeDeparture";
+		public static final String STOP_STAYING="staying";
+		public static final String STOP_STATION_ID="stopId";
+		public static final String STOP_LIST_ID ="listId";
+	//Schedule mapper params
+		public static final String SHEDULE_ID ="scheduleId";
+		public static final String SCHEDULE_LIST_ID="listId";
 }
