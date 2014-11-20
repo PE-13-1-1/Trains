@@ -7,6 +7,8 @@ import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+import ua.kture.pi1311.dao.mssql.MSsqlStationDAO;
+import ua.kture.pi1311.entity.Station;
 
 public class FavActivity extends Activity {
 	ExpandableListAdapter listAdapter_s;
@@ -42,17 +44,18 @@ public class FavActivity extends Activity {
         // Adding child data
         listDataHeader_s.add("Станции");
         // Adding child data
-        List<String> stations = new ArrayList<String>();
-        stations.add("Станция 1");
-        stations.add("Станция 2");
-        stations.add("Станция 3");
-        stations.add("Станция 4");
-        stations.add("Станция 5");
-        stations.add("Станция 6");
-        stations.add("Станция 7");
-
         
-        listDataChild_s.put(listDataHeader_s.get(0), stations);}
+        MSsqlStationDAO worker = new MSsqlStationDAO();
+        
+        List<String> stationNames = new ArrayList<String>();
+        ArrayList<Station> stations = worker.findAllStations();
+        
+        for (Station station : stations)
+        {
+        	stationNames.add(station.getStationName());
+        }
+        
+        listDataChild_s.put(listDataHeader_s.get(0), stationNames);}
 	
 	private void prepareListData_w() {
         listDataHeader_w = new ArrayList<String>();
@@ -67,7 +70,6 @@ public class FavActivity extends Activity {
         ways.add("Маршрут 3");
         ways.add("Маршрут 4");
         ways.add("Маршрут 5");
-        ways.add("Маршрут 6");
         
         listDataChild_w.put(listDataHeader_w.get(0), ways);}
 	

@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 
+import ua.kture.pi1311.dao.mssql.MSsqlStationDAO;
 import ua.kture.pi1311.electrotrain.ExpandableListAdapter;
 import ua.kture.pi1311.electrotrain.R;
+import ua.kture.pi1311.entity.Station;
 
 public class Activity_Fav extends Fragment {
 
@@ -55,23 +57,16 @@ public class Activity_Fav extends Fragment {
         listDataChild = new HashMap<String, List<String>>();
         
         listDataHeader.add("Станции");
-        List<String> stations1 = new ArrayList<String>();
         
-        stations1.add("Станция 1");
-        stations1.add("Станция 2");
-        stations1.add("Станция 3");
-        stations1.add("Станция 4");
-        stations1.add("Станция 5");
-        stations1.add("Станция 6");
-        stations1.add("Станция 7");
-        stations1.add("Станция 5");
-        stations1.add("Станция 1");
-        stations1.add("Станция 2");
-        stations1.add("Станция 3");
-        stations1.add("Станция 4");
-        stations1.add("Станция 5");
-        stations1.add("Станция 6");
-        stations1.add("Станция 7");
+        MSsqlStationDAO worker = new MSsqlStationDAO();
+        
+        List<String> stationNames = new ArrayList<String>();
+        ArrayList<Station> stations = worker.findAllStations();
+        
+        for (int i = 0; i < 5; i++)
+        {
+        	stationNames.add(stations.get(i).getStationName());
+        }
         
         listDataHeader.add("Маршрут");
         List<String> ways = new ArrayList<String>();
@@ -83,7 +78,7 @@ public class Activity_Fav extends Fragment {
         ways.add("Маршрут 5");
         ways.add("Маршрут 6");
         
-        listDataChild.put(listDataHeader.get(0), stations1);
+        listDataChild.put(listDataHeader.get(0), stationNames);
         listDataChild.put(listDataHeader.get(1), ways);}
 	
 
