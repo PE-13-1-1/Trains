@@ -102,29 +102,6 @@ create table Station (
 go
 
 /*==============================================================*/
-/* Table: StationList                                           */
-/*==============================================================*/
-create table StationList (
-   listId               int                  identity not null,
-   constraint PK_STATIONLIST primary key (listId)
-)
-go
-
-/*==============================================================*/
-/* Table: Stop                                                  */
-/*==============================================================*/
-create table Stop (
-   stationId            int                  not null,
-   timeArrival          date                 null,
-   timeDeparture        date                 null,
-   staying              int                  null,
-   stopId               int                  identity  not null,
-   listId               int                  null,
-   constraint PK_STOP primary key (stopId)
-)
-go
-
-/*==============================================================*/
 /* Table: Train                                                 */
 /*==============================================================*/
 create table Train (
@@ -134,20 +111,29 @@ create table Train (
    status               nvarchar(Max)		 not null,
    trainNumber          int                  not null,
    trainURL             nvarchar(Max)        not null,
-   scheduleId           int                  null,
-   constraint PK_TRAIN primary key (trainId)
+   constraint PK_TRAIN primary key (trainId),
 )
 go
 
 /*==============================================================*/
-/* Table: TrainSchedule                                         */
+/* Table: Stop                                                  */
 /*==============================================================*/
-create table TrainSchedule (
-   scheduleId           int                  identity not null,
-   listId               int                  not null,
-   constraint PK_TRAINSCHEDULE primary key (scheduleId)
+create table Stop (
+   stationId            int                  not null,
+   timeArrival          datetime                 null,
+   timeDeparture        datetime                 null,
+   staying              int                  null,
+   stopId               int                  identity  not null,
+   trainId              int                  not null,
+   constraint PK_STOP primary key (stopId),
+   FOREIGN KEY (stationId)
+   REFERENCES "Station" (stationId),
+    FOREIGN KEY (trainId)
+   REFERENCES "Train" (trainId),
 )
 go
+
+
 /*
 alter table Stop
    add constraint FK_STOP_REFERENCE_STATIONL foreign key (listId)

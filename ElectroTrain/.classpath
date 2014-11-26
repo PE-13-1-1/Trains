@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="/android-support-v7-appcompat/libs/android-support-v7-appcompat.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="libs/mysql-connector-java-5.1.34-bin.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
