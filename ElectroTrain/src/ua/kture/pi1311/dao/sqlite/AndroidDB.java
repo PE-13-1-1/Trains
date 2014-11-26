@@ -64,9 +64,6 @@ public class AndroidDB extends SQLiteOpenHelper {
 	}
 	
 	public DAOFactory getSQLiteDAOFactory() {
-//		SQLiteDatabase dbWrite = this.getWritableDatabase();
-//		SQLiteDatabase dbRead = this.getReadableDatabase();
-//		DAOFactory.getSQLiteDAOFactory(2, dbWrite, dbRead);
 		dbRead = this.getReadableDatabase();
 		dbWrite = this.getWritableDatabase();
 		return DAOFactory.getDAOFactory(2);

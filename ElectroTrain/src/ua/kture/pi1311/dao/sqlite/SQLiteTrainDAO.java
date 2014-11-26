@@ -42,9 +42,9 @@ public class SQLiteTrainDAO implements TrainDAO {
 			values.put(MapperParameters.TRAIN_STATUS, train.getStatus());
 			values.put(MapperParameters.TRAIN_URL, train.getTrainUrl());
 			AndroidDB.dbWrite.insert("Train", null, values);
-			AndroidDB.dbWrite.close();
 			return true;
 		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 			return false;
 		}
 	}
