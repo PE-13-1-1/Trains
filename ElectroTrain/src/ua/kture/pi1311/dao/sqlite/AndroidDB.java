@@ -30,7 +30,7 @@ public class AndroidDB extends SQLiteOpenHelper {
 				MapperParameters.TRAIN_FINAL_POINT + " TEXT , " +
 				MapperParameters.TRAIN_STATUS + " TEXT , " +
 				MapperParameters.TRAIN_NUMBER + " INTEGER , " + 
-				MapperParameters.TRAIN_URL + " TEXT , " +
+				MapperParameters.TRAIN_URL + " TEXT " +
 						");");
 		
 		db.execSQL("CREATE TABLE Stop (" +
@@ -50,8 +50,6 @@ public class AndroidDB extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		dbRead = this.getReadableDatabase();
-		dbWrite = this.getWritableDatabase();
 		createTables(db);
 	}
 
@@ -65,12 +63,13 @@ public class AndroidDB extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	public void getSQLiteDAOFactory() {
+	public DAOFactory getSQLiteDAOFactory() {
 //		SQLiteDatabase dbWrite = this.getWritableDatabase();
 //		SQLiteDatabase dbRead = this.getReadableDatabase();
 //		DAOFactory.getSQLiteDAOFactory(2, dbWrite, dbRead);
 		dbRead = this.getReadableDatabase();
 		dbWrite = this.getWritableDatabase();
+		return DAOFactory.getDAOFactory(2);
 	}
 
 }
