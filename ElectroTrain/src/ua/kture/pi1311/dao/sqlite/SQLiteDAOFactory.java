@@ -13,22 +13,20 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class SQLiteDAOFactory extends DAOFactory{
 
-	private  SQLiteDatabase dbWrite;
-	private  SQLiteDatabase dbRead;
 	
-	public SQLiteDAOFactory(SQLiteDatabase dbWrite, SQLiteDatabase dbRead) {
-		this.dbWrite = dbWrite;
-		this.dbRead = dbRead;
+	
+	public SQLiteDAOFactory() {
+		
 	}
 
 	@Override
 	public StationDAO getStationDAO() {
-		return new SQLiteStationDAO(dbWrite, dbRead);
+		return new SQLiteStationDAO();
 	}
 
 	@Override
 	public TrainDAO getTrainDAO() {
-		return new SQLiteTrainDAO(dbWrite, dbRead);
+		return new SQLiteTrainDAO();
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class SQLiteDAOFactory extends DAOFactory{
 
 	@Override
 	public StopDAO getStopDAO() {
-		return new SQLiteStopDAO(dbWrite, dbRead);
+		return new SQLiteStopDAO();
 	}
 	
 }
