@@ -1,8 +1,10 @@
 package ua.kture.pi1311.entity;
 
+import java.io.Serializable;
+
 import ua.kture.pi13.demo.enums.DirectionType;
 
-public class Direction {
+public class Direction implements Serializable{
 
 	private int directionId;
 	

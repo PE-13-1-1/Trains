@@ -1,8 +1,9 @@
 package ua.kture.pi1311.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Station {
+public class Station implements Serializable{
 	
 	private int stationId;
 	

@@ -1,8 +1,9 @@
 package ua.kture.pi1311.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Train {
+public class Train implements Serializable{
 
 	private int trainId;
 
@@ -17,7 +18,7 @@ public class Train {
 	private int trainNumber;
 
 	private String trainUrl;
-
+	static final long serialVersionUID =4706426902916659405L;
 	private int scheduleId;
 
 	public Train() {

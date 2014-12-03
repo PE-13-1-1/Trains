@@ -1,4 +1,4 @@
-package ua.kture.pi1311.dao.sqlite;
+/*package ua.kture.pi1311.dao.sqlite;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -149,4 +149,4 @@ public class SQLiteTrainDAO implements TrainDAO {
 		train.setTrainUrl(rs.getString(5));
 		return train;
 	}
-}
+}*/

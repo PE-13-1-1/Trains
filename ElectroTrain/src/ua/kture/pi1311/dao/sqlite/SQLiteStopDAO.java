@@ -1,4 +1,4 @@
-package ua.kture.pi1311.dao.sqlite;
+/*package ua.kture.pi1311.dao.sqlite;
 
 import java.sql.SQLException;
 
@@ -119,4 +119,4 @@ public class SQLiteStopDAO implements StopDAO {
 		return station;
 	}
 
-}
+}*/

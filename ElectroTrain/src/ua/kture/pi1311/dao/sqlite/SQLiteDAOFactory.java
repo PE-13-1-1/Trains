@@ -1,4 +1,4 @@
-package ua.kture.pi1311.dao.sqlite;
+/*package ua.kture.pi1311.dao.sqlite;
 
 import ua.kture.pi1311.dao.DAOFactory;
 import ua.kture.pi1311.dao.DirectionDAO;
@@ -40,4 +40,4 @@ public class SQLiteDAOFactory extends DAOFactory{
 		return new SQLiteStopDAO();
 	}
 	
-}
+}*/

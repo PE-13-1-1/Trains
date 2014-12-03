@@ -1,8 +1,9 @@
 package ua.kture.pi1311.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Stop {
+public class Stop implements Serializable{
 
 	private int stopId;
 

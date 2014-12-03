@@ -10,7 +10,7 @@ import fragments.Activity_Search;
 import fragments.Activity_Search_Stations;
 import fragments.Activity_Settings;
 
-import ua.kture.pi1311.sqlite.LocalDataBase;
+//import ua.kture.pi1311.sqlite.LocalDataBase;
 import android.support.v7.app.ActionBarActivity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -98,10 +98,10 @@ public class MainActivity extends ActionBarActivity {
             selectItem(0);
         }
         
-	    LocalDataBase sqh = new LocalDataBase(this);
+	    /*LocalDataBase sqh = new LocalDataBase(this);
 	    SQLiteDatabase sqdb = sqh.getWritableDatabase();
 	    sqdb.close();
-	    sqh.close();
+	    sqh.close();*/
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package ua.kture.pi1311.dao.sqlite;
+/*package ua.kture.pi1311.dao.sqlite;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -136,4 +136,4 @@ public class SQLiteStationDAO implements StationDAO {
 		return station;
 	}
 
-}
+}*/
