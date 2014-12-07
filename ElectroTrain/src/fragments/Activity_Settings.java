@@ -62,8 +62,8 @@ public class Activity_Settings extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_settings, container,
                 false);
-        b1=(Button)rootView.findViewById(R.id.button1);
-        t1=(TextView)rootView.findViewById(R.id.textView1);
+        b1 = (Button)rootView.findViewById(R.id.button1);
+        t1 = (TextView)rootView.findViewById(R.id.textView1);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 postData();
