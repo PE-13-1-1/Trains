@@ -23,7 +23,7 @@ public class Activity_Search extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_search, container,
                 false);
         ViewPager vpPager = (ViewPager) rootView.findViewById(R.id.vpPager);
-        adapterViewPager = new MyPagerAdapter(getFragmentManager());
+        adapterViewPager = new MyPagerAdapter(getChildFragmentManager());
         vpPager.setAdapter(adapterViewPager);
         return rootView;
     }
