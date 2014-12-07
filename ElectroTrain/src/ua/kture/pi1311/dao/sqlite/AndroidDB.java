@@ -1,4 +1,4 @@
-/*package ua.kture.pi1311.dao.sqlite;
+package ua.kture.pi1311.dao.sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -69,4 +69,4 @@ public class AndroidDB extends SQLiteOpenHelper {
 		return DAOFactory.getDAOFactory(2);
 	}
 
-}*/
+}

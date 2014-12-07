@@ -1,9 +1,8 @@
 package ua.kture.pi1311.entity;
 
-import java.io.Serializable;
 import java.sql.Date;
 
-public class Stop implements Serializable{
+public class Stop {
 
 	private int stopId;
 
@@ -11,7 +10,7 @@ public class Stop implements Serializable{
 
 	private int staying;
 
-	private int listId;
+	private int trainId;
 
 	private Date timeArrival;
 
@@ -28,7 +27,7 @@ public class Stop implements Serializable{
 		}
 		Stop stop = (Stop) o;
 		boolean result = (this.stopId == stop.stopId
-				&& this.listId == stop.listId);
+				&& this.trainId == stop.trainId);
 				return result;
 	}
 
@@ -56,12 +55,12 @@ public class Stop implements Serializable{
 		this.staying = staying;
 	}
 
-	public int getListId() {
-		return listId;
+	public int getTrainId() {
+		return trainId;
 	}
 
-	public void setListId(int listId) {
-		this.listId = listId;
+	public void setTrainId(int trainId) {
+		this.trainId = trainId;
 	}
 
 	public Date getTimeArrival() {

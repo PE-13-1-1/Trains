@@ -10,7 +10,10 @@ import fragments.Activity_Search;
 import fragments.Activity_Search_Stations;
 import fragments.Activity_Settings;
 
-//import ua.kture.pi1311.sqlite.LocalDataBase;
+import ua.kture.pi1311.dao.DAOFactory;
+import ua.kture.pi1311.dao.TrainDAO;
+import ua.kture.pi1311.dao.sqlite.AndroidDB;
+import ua.kture.pi1311.entity.Train;
 import android.support.v7.app.ActionBarActivity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -97,11 +100,15 @@ public class MainActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
-        
-	    /*LocalDataBase sqh = new LocalDataBase(this);
-	    SQLiteDatabase sqdb = sqh.getWritableDatabase();
-	    sqdb.close();
-	    sqh.close();*/
+        try {
+	    AndroidDB sqh = new AndroidDB(this);
+	    DAOFactory dao = sqh.getSQLiteDAOFactory();
+	    TrainDAO trainDAO = dao.getTrainDAO();
+	    sqh.close();
+        }
+        catch (Exception ex) {
+        	System.out.println(ex.getMessage());
+        }
 	}
 	
 	@Override
