@@ -6,6 +6,8 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
@@ -29,6 +32,7 @@ public class Activity_Search_Stations extends Fragment {
     ArrayAdapter<String> adapter_s;
     EditText inputSearch_s;
     ArrayList<HashMap<String, String>> trainList;
+    Button butt;
 	
     public Activity_Search_Stations() {
     	
@@ -48,8 +52,22 @@ public class Activity_Search_Stations extends Fragment {
         		 rootView.findViewById(R.id.search_station);
          textView.setAdapter(adapter);
          textView.setThreshold(0);
-         
-         
+         butt=(Button) rootView.findViewById(R.id.search_but1);
+         butt.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+            	 //Fragment fragment = new Activity_Settings();
+            	 //FragmentManager fragmentManager = rootView.getActivity().getSupportFragmentManager();
+                 //fragmentManager.beginTransaction()
+                         //.replace(R.id.content_frame, fragment).commit();
+            	Fragment fragment = new Activity_Station_screen();
+             	FragmentManager fragmentManager2 = getFragmentManager();
+             	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+             	//fragmentTransaction2.addToBackStack("xyz");
+             	//fragmentTransaction2.hide(MeinProfilFragment.this);
+             	//fragmentTransaction2.add(android.R.id.content, fragment2);
+             	//fragmentTransaction2.commit();
+             }
+         });
 		
 
 		
