@@ -217,8 +217,6 @@ public class MSsqlStopDAO  implements StopDAO{
 	private void mapStopForInsert(Stop stop, PreparedStatement pstmt)
 			throws SQLException {
 		pstmt.setInt(1, stop.getStationId());
-		pstmt.setDate(2, stop.getTimeArrival());
-		pstmt.setDate(3, stop.getTimeDeparture());
 		pstmt.setInt(4, stop.getStaying());
 		pstmt.setInt(5, stop.getTrainId());
 	}
@@ -229,8 +227,6 @@ public class MSsqlStopDAO  implements StopDAO{
 		stop.setStationId(rs.getInt(MapperParameters.STOP_STATION_ID));
 		stop.setStaying(rs.getInt(MapperParameters.STOP_STAYING));
 		stop.setStopId(rs.getInt(MapperParameters.STOP_ID));
-		stop.setTimeArrival(rs.getDate(MapperParameters.STOP_TIME_ARRIVAL));
-		stop.setTimeDeparture(rs.getDate(MapperParameters.STOP_TIME_DEPARTURE));
 		return stop;
 	}
 }

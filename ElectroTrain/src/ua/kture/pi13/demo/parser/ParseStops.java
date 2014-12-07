@@ -104,8 +104,6 @@ public class ParseStops {
 					}
 					Stop stop = new Stop();
 					stop.setTrainId(Trains.get(i).getTrainId());
-					stop.setTimeArrival(timeArrival);
-					stop.setTimeDeparture(timeDeparture);
 					stop.setStaying(staying);
 					int id = getStationId(Stations, station);
 					if (id != -1) {

@@ -1,16 +1,16 @@
 package ua.kture.pi1311.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Station {
+public class Station implements Serializable{
 	
 	private int stationId;
 	
 	private String stationName;
 	
-	private List<Train> arrivalTrains;
-	
-	private List<Train> departureTrains;
+	private ArrayList<Stop> stops;
 		
 	private String stationURL;
 
@@ -19,7 +19,8 @@ public class Station {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (o == null || this.getClass() != o.getClass()) {
+		if (o == null || this.getClass() != o.getClass()) 
+		{
 			return false;
 		}
 		Station station = (Station) o;
@@ -44,28 +45,20 @@ public class Station {
 		this.stationName = stationName;
 	}
 
-	public List<Train> getArrivalTrains() {
-		return arrivalTrains;
-	}
-
-	public void setArrivalTrains(List<Train> arrivalTrains) {
-		this.arrivalTrains = arrivalTrains;
-	}
-
-	public List<Train> getDepartureTrains() {
-		return departureTrains;
-	}
-
-	public void setDepartureTrains(List<Train> departureTrains) {
-		this.departureTrains = departureTrains;
-	}
-
 	public String getStationURL() {
 		return stationURL;
 	}
 
 	public void setStationURL(String stationURL) {
 		this.stationURL = stationURL;
+	}
+
+	public ArrayList<Stop> getStops() {
+		return stops;
+	}
+
+	public void setStops(ArrayList<Stop> stops) {
+		this.stops = stops;
 	}
 
 	

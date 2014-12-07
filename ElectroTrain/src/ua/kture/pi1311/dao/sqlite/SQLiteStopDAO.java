@@ -111,8 +111,6 @@ public class SQLiteStopDAO implements StopDAO {
 	private Stop unMapStop(Cursor rs) throws SQLException {
 		Stop station = new Stop();
 		station.setStopId(rs.getInt(0));
-		station.setTimeArrival(java.sql.Date.valueOf(rs.getString(1)));
-		station.setTimeDeparture(java.sql.Date.valueOf(rs.getString(2)));
 		station.setStaying(rs.getInt(3));
 		station.setTrainId(rs.getInt(4));
 		station.setStationId(rs.getInt(5));

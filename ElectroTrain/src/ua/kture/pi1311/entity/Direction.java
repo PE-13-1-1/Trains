@@ -1,6 +1,5 @@
 package ua.kture.pi1311.entity;
 
-import ua.kture.pi13.demo.enums.DirectionType;
 
 public class Direction {
 
@@ -8,7 +7,6 @@ public class Direction {
 	
 	private String directionTitle;
 	
-	private DirectionType directionType;
 	
 	public Direction() {
 	}
@@ -29,12 +27,5 @@ public class Direction {
 		this.directionTitle = directionTitle;
 	}
 	
-	public DirectionType getDirectionType() {
-		return this.directionType;
-	}
-	
-	public void setDirectionType(DirectionType directionType) {
-		this.directionType = directionType;
-	}
 		
 }

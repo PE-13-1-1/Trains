@@ -1,8 +1,10 @@
 package ua.kture.pi1311.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Train {
+public class Train implements Serializable {
 
 	private int trainId;
 
@@ -10,7 +12,7 @@ public class Train {
 
 	private String finalPoint;
 
-	private List<Station> stations;
+	private ArrayList<Stop> stops;
 
 	private String status;
 
@@ -18,12 +20,15 @@ public class Train {
 
 	private String trainUrl;
 	
+	static final long serialVersionUID =4706426902916659405L;
+	
 	public Train() {
 
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o) 
+	{
 		if (o == null || this.getClass() != o.getClass()) {
 			return false;
 		}
@@ -58,12 +63,12 @@ public class Train {
 		this.finalPoint = finalPoint;
 	}
 
-	public List<Station> getStations() {
-		return stations;
+	public ArrayList<Stop> getStops() {
+		return this.stops;
 	}
 
-	public void setStations(List<Station> stations) {
-		this.stations = stations;
+	public void setStops(ArrayList<Stop> stops) {
+		this.stops = stops;
 	}
 
 	public String getStatus() {
