@@ -1138,7 +1138,7 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
-        public static final int button1=0x7f050046;
+        public static final int button1=0x7f050048;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
         public static final int content_frame=0x7f050040;
@@ -1185,8 +1185,8 @@ containing a value of this type.
         public static final int search_src_text=0x7f050037;
         public static final int search_station=0x7f050045;
         public static final int search_voice_btn=0x7f05003b;
-        public static final int search_way1=0x7f050048;
-        public static final int search_way2=0x7f050047;
+        public static final int search_way1=0x7f050047;
+        public static final int search_way2=0x7f050046;
         public static final int shortcut=0x7f05002e;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
@@ -1268,11 +1268,12 @@ containing a value of this type.
         public static final int activity_settings=0x7f03001e;
         public static final int activity_stations=0x7f03001f;
         public static final int activity_train=0x7f030020;
-        public static final int drawer_list_item=0x7f030021;
-        public static final int list_group=0x7f030022;
-        public static final int list_item=0x7f030023;
-        public static final int support_simple_spinner_dropdown_item=0x7f030024;
-        public static final int trains_item=0x7f030025;
+        public static final int activity_ways=0x7f030021;
+        public static final int drawer_list_item=0x7f030022;
+        public static final int list_group=0x7f030023;
+        public static final int list_item=0x7f030024;
+        public static final int support_simple_spinner_dropdown_item=0x7f030025;
+        public static final int trains_item=0x7f030026;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;

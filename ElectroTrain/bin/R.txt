@@ -291,7 +291,7 @@ int id action_search 0x7f050059
 int id activity_chooser_view_content 0x7f050025
 int id always 0x7f05000b
 int id beginning 0x7f050011
-int id button1 0x7f050046
+int id button1 0x7f050048
 int id checkbox 0x7f05002d
 int id collapseActionView 0x7f05000d
 int id content_frame 0x7f050040
@@ -338,8 +338,8 @@ int id search_plate 0x7f050036
 int id search_src_text 0x7f050037
 int id search_station 0x7f050045
 int id search_voice_btn 0x7f05003b
-int id search_way1 0x7f050048
-int id search_way2 0x7f050047
+int id search_way1 0x7f050047
+int id search_way2 0x7f050046
 int id shortcut 0x7f05002e
 int id showCustom 0x7f050007
 int id showHome 0x7f050004
@@ -395,11 +395,12 @@ int layout activity_search_ways 0x7f03001d
 int layout activity_settings 0x7f03001e
 int layout activity_stations 0x7f03001f
 int layout activity_train 0x7f030020
-int layout drawer_list_item 0x7f030021
-int layout list_group 0x7f030022
-int layout list_item 0x7f030023
-int layout support_simple_spinner_dropdown_item 0x7f030024
-int layout trains_item 0x7f030025
+int layout activity_ways 0x7f030021
+int layout drawer_list_item 0x7f030022
+int layout list_group 0x7f030023
+int layout list_item 0x7f030024
+int layout support_simple_spinner_dropdown_item 0x7f030025
+int layout trains_item 0x7f030026
 int menu main 0x7f0d0000
 int string abc_action_bar_home_description 0x7f0a0001
 int string abc_action_bar_up_description 0x7f0a0002
