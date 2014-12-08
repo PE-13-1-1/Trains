@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 
 import ua.kture.pi1311.dao.DAOFactory;
@@ -51,7 +54,24 @@ public class Activity_Fav extends Fragment {
                 previousItem = groupPosition;
             }
         });
-        
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+            public boolean onChildClick(ExpandableListView parent, View v,
+                    int groupPosition,   int childPosition, long id) {
+            	if (groupPosition == 0)
+            	{
+                	Fragment fragment = new Activity_Station_screen();
+            		FragmentManager fragmentManager2 = getFragmentManager();
+                 	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            	}
+            	if (groupPosition == 1)
+            	{
+                	Fragment fragment = new Activity_Way_screen();
+            		FragmentManager fragmentManager2 = getFragmentManager();
+                 	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            	}
+                 return false;
+                }
+              });
         return rootView;
     }
     private void prepareListData() {
@@ -59,6 +79,16 @@ public class Activity_Fav extends Fragment {
         listDataChild = new HashMap<String, List<String>>();
         
         listDataHeader.add("Станции");
+        List<String> stations = new ArrayList<String>();
+        
+        stations.add("Станция 1");
+        stations.add("Станция 2");
+        stations.add("Станция 3");
+        stations.add("Станция 4");
+        stations.add("Станция 5");
+        stations.add("Станция 6");
+        listDataChild.put(listDataHeader.get(0), stations);
+        
         listDataHeader.add("Маршрут");
         List<String> ways = new ArrayList<String>();
         
@@ -68,8 +98,8 @@ public class Activity_Fav extends Fragment {
         ways.add("Маршрут 4");
         ways.add("Маршрут 5");
         ways.add("Маршрут 6");
-        
-        listDataChild.put(listDataHeader.get(1), ways);}
+        listDataChild.put(listDataHeader.get(1), ways);
+        }
 	
 
 }

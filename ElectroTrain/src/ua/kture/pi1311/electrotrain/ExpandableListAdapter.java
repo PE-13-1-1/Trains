@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.List;
  
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
  
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
@@ -52,6 +55,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.lblListItem);
  
         txtListChild.setText(childText);
+        Button button = (Button)convertView.findViewById(R.id.fav_but);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setBackgroundColor(Color.CYAN);
+            }
+        });
         return convertView;
     }
  

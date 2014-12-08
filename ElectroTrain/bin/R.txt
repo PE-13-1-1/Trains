@@ -272,7 +272,7 @@ int drawable tab_unselected_example 0x7f020077
 int drawable tab_unselected_focused_example 0x7f020078
 int drawable tab_unselected_pressed_example 0x7f020079
 int id LinearLayout1 0x7f05003c
-int id LinearLayout2 0x7f050056
+int id LinearLayout2 0x7f050057
 int id RelativeLayout1 0x7f050054
 int id Stations_List 0x7f05003d
 int id Ways_List 0x7f05003e
@@ -287,7 +287,7 @@ int id action_context_bar 0x7f05001d
 int id action_menu_divider 0x7f050016
 int id action_menu_presenter 0x7f050017
 int id action_mode_close_button 0x7f050024
-int id action_search 0x7f050059
+int id action_search 0x7f05005a
 int id activity_chooser_view_content 0x7f050025
 int id always 0x7f05000b
 int id beginning 0x7f050011
@@ -304,6 +304,7 @@ int id edit_query 0x7f050030
 int id end 0x7f050013
 int id expand_activities_button 0x7f050026
 int id expanded_menu 0x7f05002c
+int id fav_but 0x7f050056
 int id home 0x7f050014
 int id homeAsUp 0x7f050005
 int id icon 0x7f05002a
@@ -311,8 +312,8 @@ int id ifRoom 0x7f05000a
 int id image 0x7f050027
 int id imageButton1 0x7f05004a
 int id imageButton2 0x7f05004c
-int id label 0x7f050057
-int id label2 0x7f050058
+int id label 0x7f050058
+int id label2 0x7f050059
 int id lblListHeader 0x7f050053
 int id lblListItem 0x7f050055
 int id left_drawer 0x7f050041
