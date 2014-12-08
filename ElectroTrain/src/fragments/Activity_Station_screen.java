@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import ua.kture.pi1311.electrotrain.MyPagerAdapter;
@@ -19,7 +20,8 @@ import ua.kture.pi1311.electrotrain.R;
 
 public class Activity_Station_screen extends Fragment {
 	FragmentPagerAdapter adapterViewPager;
-	
+    ImageButton fav_but;
+	ImageButton refresh_but;
     public Activity_Station_screen() {
     }
 
@@ -32,9 +34,6 @@ public class Activity_Station_screen extends Fragment {
         ListView lvMain = (ListView) rootView.findViewById(R.id.stations_list);
         String[] names = { "Иван", "Марья", "Петр", "Антон", "Даша", "Борис","Костя", "Игорь", "Анна", "Денис", "Андрей" };
         Adapter_for_stations adapter = new Adapter_for_stations(this.getActivity(), names);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),
-         //   R.layout.trains_item,R.id.label, names);
-        // присваиваем адаптер списку
         lvMain.setAdapter(adapter);
         lvMain.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -46,6 +45,18 @@ public class Activity_Station_screen extends Fragment {
                 .replace(R.id.content_frame, fragment).commit();
             }
           });
+        fav_but=(ImageButton) rootView.findViewById(R.id.fav_but);
+        fav_but.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	
+            }
+        });
+        refresh_but=(ImageButton) rootView.findViewById(R.id.refresh_but);
+        refresh_but.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	
+            }
+        });
         return rootView;
     }
 }

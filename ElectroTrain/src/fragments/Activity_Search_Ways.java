@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
 
@@ -31,8 +32,8 @@ public class Activity_Search_Ways extends Fragment {
     ArrayAdapter<String> adapter_s;
     EditText inputSearch_s;
     ArrayList<HashMap<String, String>> trainList;
-    Button butt;
-	
+    ImageButton search_but;
+	ImageButton swap_but;
     public Activity_Search_Ways() {
     	
     }
@@ -58,24 +59,23 @@ public class Activity_Search_Ways extends Fragment {
          textView.setAdapter(adapter);
          textView.setThreshold(0);
 		
-         butt=(Button) rootView.findViewById(R.id.search_but1);
-         butt.setOnClickListener(new View.OnClickListener() {
+         search_but=(ImageButton) rootView.findViewById(R.id.search_but);
+         search_but.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
-            	 //Fragment fragment = new Activity_Settings();
-            	 //FragmentManager fragmentManager = rootView.getActivity().getSupportFragmentManager();
-                 //fragmentManager.beginTransaction()
-                         //.replace(R.id.content_frame, fragment).commit();
             	Fragment fragment = new Activity_Way_screen();
              	Fragment parent=getParentFragment();
              	FragmentManager fragmentManager2 = parent.getFragmentManager();
              	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
-             	//fragmentTransaction2.addToBackStack("xyz");
-             	//fragmentTransaction2.hide(MeinProfilFragment.this);
-             	//fragmentTransaction2.add(android.R.id.content, fragment2);
-             	//fragmentTransaction2.commit();
+
              }
          });
-         
+         swap_but=(ImageButton) rootView.findViewById(R.id.swap_but);
+         swap_but.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+            	 
+
+             }
+         });
         return rootView;
     }
 }

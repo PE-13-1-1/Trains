@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import ua.kture.pi1311.electrotrain.Adapter_for_ways;
@@ -20,7 +21,8 @@ import ua.kture.pi1311.electrotrain.R;
 
 public class Activity_Way_screen extends Fragment {
 	FragmentPagerAdapter adapterViewPager;
-	
+    ImageButton fav_but;
+	ImageButton refresh_but;
     public Activity_Way_screen() {
     }
 
@@ -47,6 +49,18 @@ public class Activity_Way_screen extends Fragment {
                 .replace(R.id.content_frame, fragment).commit();
             }
           });
+        fav_but=(ImageButton) rootView.findViewById(R.id.fav_but);
+        fav_but.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	
+            }
+        });
+        refresh_but=(ImageButton) rootView.findViewById(R.id.refresh_but);
+        refresh_but.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	
+            }
+        });
         return rootView;
     }
 }

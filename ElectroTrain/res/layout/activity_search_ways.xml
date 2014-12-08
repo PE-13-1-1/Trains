@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-                    <Button
-                        android:id="@+id/search_but1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/search_way2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="60dp"
-                        android:text="Поиск" />
-
                     <AutoCompleteTextView
                         android:id="@+id/search_way1"
                         android:layout_width="wrap_content"
@@ -32,5 +23,23 @@
                         android:layout_below="@+id/search_way1"
                         android:layout_marginTop="60dp"
                         android:ems="10" />
+
+                    <ImageButton
+                        android:id="@+id/swap_but"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/search_way1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="31dp"
+                        android:src="@drawable/ab_background_textured_example" />
+
+                    <ImageButton
+                        android:id="@+id/search_but"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/search_way2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="56dp"
+                        android:src="@drawable/ab_background_textured_example" />
 
 </RelativeLayout>
