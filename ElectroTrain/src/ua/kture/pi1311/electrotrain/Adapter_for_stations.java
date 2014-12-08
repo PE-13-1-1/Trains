@@ -8,11 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MySimpleArrayAdapter extends ArrayAdapter<String> {
+public class Adapter_for_stations extends ArrayAdapter<String> {
   private final Context context;
   private final String[] values;
 
-  public MySimpleArrayAdapter(Context context, String[] values) {
+  public Adapter_for_stations(Context context, String[] values) {
     super(context, R.layout.trains_item, values);
     this.context = context;
     this.values = values;

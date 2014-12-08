@@ -60,7 +60,7 @@ public class Activity_Search_Stations extends Fragment {
                  //fragmentManager.beginTransaction()
                          //.replace(R.id.content_frame, fragment).commit();
             	Fragment fragment = new Activity_Station_screen();
-            	Fragment parent = getParentFragment();
+             	Fragment parent=getParentFragment();
              	FragmentManager fragmentManager2 = parent.getFragmentManager();
              	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
              	//fragmentTransaction2.addToBackStack("xyz");
