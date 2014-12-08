@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-        
+		
 		mTitle = mDrawerTitle = getTitle();
         mScreenTitles = getResources().getStringArray(R.array.screen_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -122,8 +122,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_search).setVisible(!drawerOpen);
+    	boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+    	menu.findItem(R.id.action_search).setVisible(false);
+        //menu.findItem(R.id.action_search).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
     
@@ -136,10 +137,10 @@ public class MainActivity extends ActionBarActivity {
         }
          // Handle action buttons
         switch(item.getItemId()) {
-        case R.id.action_search:
+        //case R.id.action_search:
             // Show toast about click.
-        	Toast.makeText(this, R.string.action_search, Toast.LENGTH_SHORT).show();
-            return true;
+        	//Toast.makeText(this, R.string.action_search, Toast.LENGTH_SHORT).show();
+            //return true;
         default:
             return super.onOptionsItemSelected(item);
         }
