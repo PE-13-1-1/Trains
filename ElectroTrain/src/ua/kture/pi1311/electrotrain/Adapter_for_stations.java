@@ -13,7 +13,7 @@ public class Adapter_for_stations extends ArrayAdapter<String> {
   private final String[] values;
 
   public Adapter_for_stations(Context context, String[] values) {
-    super(context, R.layout.trains_item, values);
+    super(context, R.layout.train_item, values);
     this.context = context;
     this.values = values;
   }
@@ -22,7 +22,7 @@ public class Adapter_for_stations extends ArrayAdapter<String> {
   public View getView(int position, View convertView, ViewGroup parent) {
     LayoutInflater inflater = (LayoutInflater) context
         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View rowView = inflater.inflate(R.layout.trains_item, parent, false);
+    View rowView = inflater.inflate(R.layout.train_item, parent, false);
     TextView textView1 = (TextView) rowView.findViewById(R.id.label);
     TextView textView2 = (TextView) rowView.findViewById(R.id.label2);
     textView1.setText(values[position]);

@@ -1272,8 +1272,9 @@ containing a value of this type.
         public static final int drawer_list_item=0x7f030022;
         public static final int list_group=0x7f030023;
         public static final int list_item=0x7f030024;
-        public static final int support_simple_spinner_dropdown_item=0x7f030025;
-        public static final int trains_item=0x7f030026;
+        public static final int stop_item=0x7f030025;
+        public static final int support_simple_spinner_dropdown_item=0x7f030026;
+        public static final int train_item=0x7f030027;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
