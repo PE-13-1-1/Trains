@@ -77,7 +77,17 @@ public class Activity_Search_Ways extends Fragment {
          swap_but=(ImageButton) rootView.findViewById(R.id.swap_but);
          swap_but.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
-            	 
+            	 AutoCompleteTextView t1 = (AutoCompleteTextView)getActivity().findViewById(R.id.search_way1);
+            	 AutoCompleteTextView t2 = (AutoCompleteTextView)getActivity().findViewById(R.id.search_way2);
+            	 //AutoCompleteTextView temp=t1;
+            	 //t1=t2;
+            	 //t2=temp;
+            	 Editable temp = t1.getText();
+            	 //String s=temp.toString();
+            	 //Editable temp2 = t2.getText();
+            	 //String s2=temp.toString();
+            	 t1.setText(t2.getText());
+            	 t2.setText(temp);
 
              }
          });
