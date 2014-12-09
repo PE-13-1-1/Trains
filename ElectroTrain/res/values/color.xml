@@ -4,4 +4,8 @@
     <item name="lightgreen" type="color">#BCE954</item>
     <item name="green" type="color">#669900</item>
     
+    <item name="GreenMoqups1" type="color">#92D36E</item>
+    <item name="GreenMoqups2" type="color">#CBE8BA</item>
+    <item name="StepkoGreen1" type="color">#5aa532</item>
+    
 </resources>
