@@ -20,7 +20,7 @@ public class Train implements Serializable {
 
 	private String trainUrl;
 	
-	static final long serialVersionUID =4706426902916659405L;
+	static final long serialVersionUID = 4706426902916659405L;
 	
 	public Train() {
 

@@ -1,5 +1,11 @@
 package ua.kture.pi1311.localdb;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import ua.kture.pi1311.electrotrain.R;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,9 +23,9 @@ public class DBAdapterStaticStations
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_CREATE = 
 					"create table if not exists stations ("
-		          + "id integer primary key autoincrement," 
-		          + "stationname text" + ");";
-	
+		          + "id integer not null," 
+		          + "stationname text default null," 
+		          + "stationurl text dafault null" + ");";
 	private final Context context;
 	private DatabaseHelper DBHelper;
 	private SQLiteDatabase db;
@@ -81,6 +87,11 @@ public class DBAdapterStaticStations
 		return db.delete(DATABASE_TABLE, KEY_STATIONNAME + "= ?", new String[] { stationName }) > 0;
 	}
 	
+	public boolean deleteAllStations()
+	{
+		return db.delete(DATABASE_TABLE, null, null) > 0;
+	}
+	
 	//---retrieves all the records---
 	public Cursor getAllRecords()
 	{
@@ -105,5 +116,28 @@ public class DBAdapterStaticStations
 		ContentValues updatedValues = new ContentValues();
 		updatedValues.put(KEY_STATIONNAME, stationName);
 		return db.update(DATABASE_TABLE, updatedValues, KEY_ID + "= ?", new String[] { String.valueOf(id) }) > 0;
+	}
+	
+	public boolean InsertInfo()
+	{
+		try
+		{
+			InputStream insertsStream = context.getResources().openRawResource(R.raw.stations);
+		    BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
+
+		    // Iterate through lines (assuming each insert has its own line and theres no other stuff)
+		    while (insertReader.ready()) 
+		    {
+		        String insertStmt = insertReader.readLine();
+		        db.execSQL("INSERT INTO `stations` " +
+		        		"(`id`, `stationname`, `stationurl`) " +
+		        		"VALUES " + insertStmt);
+		    }
+			return true;
+		}
+		catch (Exception exception)
+		{
+			return false;
+		}
 	}
 }

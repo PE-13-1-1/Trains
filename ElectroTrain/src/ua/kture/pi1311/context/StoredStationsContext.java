@@ -72,4 +72,46 @@ public class StoredStationsContext
 			return false;
 		}
 	}
+
+	public boolean isEmpty()
+	{
+		boolean empty;
+		adapter.open();
+		Cursor cur = adapter.getStation(1);
+		empty = cur == null || cur.getCount() == 0;
+		adapter.close();
+		return empty;
+	}
+
+	public boolean fillDatabase()
+	{
+		try
+		{
+			adapter.open();
+			if (!adapter.InsertInfo())
+				return false;
+			adapter.close();
+			return true;
+		}
+		catch (Exception exception)
+		{
+			return false;
+		}
+	}
+
+	public boolean clearDatabase()
+	{
+		try
+		{
+			adapter.open();
+			if (!adapter.deleteAllStations())
+				return false;
+			adapter.close();
+			return true;
+		}
+		catch (Exception exception)
+		{
+			return false;
+		}
+	}
 }
