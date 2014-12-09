@@ -3,25 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+                    <ImageButton
+                        android:id="@+id/search_but"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/search_way2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="56dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/lens" />
+
                     <AutoCompleteTextView
                         android:id="@+id/search_way1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="130dp"
-                        android:ems="10" >
-
-                        <requestFocus />
-                    </AutoCompleteTextView>
+                        android:layout_marginTop="68dp"
+                        android:ems="10" />
 
                     <AutoCompleteTextView
                         android:id="@+id/search_way2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/search_way1"
-                        android:layout_below="@+id/search_way1"
-                        android:layout_marginTop="60dp"
+                        android:layout_below="@+id/swap_but"
+                        android:layout_marginTop="18dp"
                         android:ems="10" />
 
                     <ImageButton
@@ -30,16 +37,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/search_way1"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="31dp"
-                        android:src="@drawable/ab_background_textured_example" />
-
-                    <ImageButton
-                        android:id="@+id/search_but"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/search_way2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="56dp"
-                        android:src="@drawable/ab_background_textured_example" />
+                        android:layout_marginTop="29dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/swap" />
 
 </RelativeLayout>

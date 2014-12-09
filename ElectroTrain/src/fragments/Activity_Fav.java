@@ -85,11 +85,11 @@ public class Activity_Fav extends Fragment {
         listDataHeader.add("Станции");
         List<String> stations = new ArrayList<String>();
         
-        context = new FavouriteContext(this.getActivity().getApplicationContext());
-        for (String station : context.getFavouriteStationsNames())
-        	stations.add(station);
+        //context = new FavouriteContext(this.getActivity().getApplicationContext());
+        //for (String station : context.getFavouriteStationsNames())
+        	//stations.add(station);
         
-        listDataChild.put(listDataHeader.get(0), stations);
+        //listDataChild.put(listDataHeader.get(0), stations);
         
         listDataHeader.add("Маршрут");
         List<String> ways = new ArrayList<String>();

@@ -12,17 +12,18 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.32"
+            android:layout_weight="2"
             android:gravity="center"
             android:text="Название станции"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageButton
             android:id="@+id/fav_but"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.26"
-            android:src="@drawable/ab_background_textured_example" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.10"
+            android:background="@android:color/transparent"
+            android:src="@drawable/filledstar" />
 
     </LinearLayout>
 
@@ -42,7 +43,8 @@
             android:id="@+id/refresh_but"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ab_background_textured_example" />
+            android:src="@drawable/update" 
+            android:background="@android:color/transparent"/>
 
     </LinearLayout>
 

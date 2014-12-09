@@ -22,6 +22,7 @@
                         android:layout_below="@+id/search_station"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="50dp"
-                        android:src="@drawable/ab_background_textured_example" />
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/lens" />
 
 </RelativeLayout>
