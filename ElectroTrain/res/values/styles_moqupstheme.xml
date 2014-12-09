@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="Theme.Moqupstheme" parent="@style/Theme.AppCompat.Light">
+        <item name="actionBarItemBackground">@drawable/selectable_background_moqupstheme</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Moqupstheme</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Moqupstheme</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Moqupstheme</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Moqupstheme</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Moqupstheme</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_moqupstheme</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_moqupstheme</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Moqupstheme</item>
+
+        
+    </style>
+
+    <style name="ActionBar.Solid.Moqupstheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@drawable/ab_solid_moqupstheme</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_moqupstheme</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_moqupstheme</item>
+        <item name="progressBarStyle">@style/ProgressBar.Moqupstheme</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Moqupstheme" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="background">@drawable/ab_transparent_moqupstheme</item>
+        <item name="progressBarStyle">@style/ProgressBar.Moqupstheme</item>
+    </style>
+	
+    <style name="PopupMenu.Moqupstheme" parent="@style/Widget.AppCompat.Light.PopupMenu">	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_moqupstheme</item>	
+    </style>
+	
+    <style name="DropDownListView.Moqupstheme" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_moqupstheme</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Moqupstheme" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_moqupstheme</item>
+    </style>
+	
+    <style name="DropDownNav.Moqupstheme" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_moqupstheme</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_moqupstheme</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_moqupstheme</item>
+    </style>
+    
+    <style name="ProgressBar.Moqupstheme" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_moqupstheme</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.Moqupstheme" parent="@style/Widget.AppCompat.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_moqupstheme</item>
+    </style>
+    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Moqupstheme.Widget" parent="@style/Theme.AppCompat">
+        <item name="popupMenuStyle">@style/PopupMenu.Moqupstheme</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Moqupstheme</item>
+    </style>
+
+</resources>
