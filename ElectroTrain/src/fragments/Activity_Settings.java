@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
  
@@ -41,7 +42,10 @@ import android.widget.Button;
 import android.widget.TextView;
  
 
+import ua.kture.pi1311.context.FavouriteContext;
 import ua.kture.pi1311.electrotrain.R;
+import ua.kture.pi1311.entity.Station;
+import ua.kture.pi1311.entity.Stop;
 import ua.kture.pi1311.entity.Train;
  
 
@@ -55,7 +59,7 @@ public class Activity_Settings extends Fragment {
     public Activity_Settings() {
     }
 
-    @Override
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
@@ -69,6 +73,83 @@ public class Activity_Settings extends Fragment {
                 postData();
             }
         });
+        
+//        Station station_kh = new Station();
+//        station_kh.setStationName("Kharkov");
+//        station_kh.setStationId(1);
+//        Station station_ps = new Station();
+//        station_ps.setStationName("Pesochin");
+//        station_ps.setStationId(2);
+//        Station station_lb = new Station();
+//        station_lb.setStationName("Liubotin");
+//        station_lb.setStationId(3);
+//        
+//        Train train1 = new Train();
+//        train1.setStartPoint("Kharkov");
+//        train1.setFinalPoint("Liubotin");
+//        train1.setTrainNumber(1000);
+//        train1.setTrainId(1);
+//        Train train2 = new Train();
+//        train2.setFinalPoint("Kharkov");
+//        train2.setStartPoint("Liubotin");
+//        train2.setTrainNumber(2000);
+//        train2.setTrainId(2);
+//        
+//        Stop kh1 = new Stop();
+//        kh1.setStationId(1);
+//        kh1.setTimeArrival(new Time(10));
+//        kh1.setTimeDeparture(new Time(11));
+//        kh1.setTrainId(1);
+//        
+//        Stop ps1 = new Stop();
+//        ps1.setStationId(2);
+//        ps1.setTimeArrival(new Time(13));
+//        ps1.setTimeDeparture(new Time(14));
+//        ps1.setTrainId(1);
+//        
+//        Stop lb1 = new Stop();
+//        lb1.setStationId(1);
+//        lb1.setTimeArrival(new Time(16));
+//        lb1.setTimeDeparture(new Time(17));
+//        lb1.setTrainId(1);
+//        
+//        Stop kh2 = new Stop();
+//        kh2.setStationId(1);
+//        kh2.setTimeArrival(new Time(20));
+//        kh2.setTimeDeparture(new Time(21));
+//        kh2.setTrainId(2);
+//        
+//        Stop ps2 = new Stop();
+//        ps2.setStationId(2);
+//        ps2.setTimeArrival(new Time(23));
+//        ps2.setTimeDeparture(new Time(24));
+//        ps2.setTrainId(2);
+//        
+//        Stop lb2 = new Stop();
+//        lb2.setStationId(1);
+//        lb2.setTimeArrival(new Time(26));
+//        lb2.setTimeDeparture(new Time(27));
+//        lb2.setTrainId(2);
+//        
+//        ArrayList<Stop> l1 = new ArrayList<Stop>();
+//        l1.add(kh1);
+//        l1.add(ps1);
+//        l1.add(lb1);
+//        ArrayList<Stop> l2 = new ArrayList<Stop>();
+//        l2.add(lb2);
+//        l2.add(ps2);
+//        l2.add(kh2);
+//        
+//        train1.setStops(l1);
+//        train2.setStops(l2);
+//        
+//        ArrayList<Train> ltr = new ArrayList<Train>();
+//        ltr.add(train1);
+//        ltr.add(train2);
+        
+//        FavouriteContext context = new FavouriteContext(this.getActivity().getApplicationContext());
+//        context.addStationToFauvorite(station_ps, ltr);
+                
         return rootView;
     }
     private class DownloadWebpageTask extends AsyncTask<String, Void, String> {

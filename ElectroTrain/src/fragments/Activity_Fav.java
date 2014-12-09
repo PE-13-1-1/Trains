@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.TextView;
 
+import ua.kture.pi1311.context.FavouriteContext;
 import ua.kture.pi1311.dao.DAOFactory;
 import ua.kture.pi1311.dao.StationDAO;
 import ua.kture.pi1311.dao.TrainDAO;
@@ -28,6 +30,7 @@ public class Activity_Fav extends Fragment {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    FavouriteContext context;
     
     public Activity_Fav() {
     	
@@ -59,7 +62,8 @@ public class Activity_Fav extends Fragment {
                     int groupPosition,   int childPosition, long id) {
             	if (groupPosition == 0)
             	{
-                	Fragment fragment = new Activity_Station_screen();
+            		String stationName = (String) parent.getExpandableListAdapter().getChild(groupPosition, groupPosition);
+                	Fragment fragment = new Activity_Station_screen(stationName, context.getTrainsForStation(stationName));
             		FragmentManager fragmentManager2 = getFragmentManager();
                  	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
             	}
@@ -81,12 +85,10 @@ public class Activity_Fav extends Fragment {
         listDataHeader.add("Станции");
         List<String> stations = new ArrayList<String>();
         
-        stations.add("Станция 1");
-        stations.add("Станция 2");
-        stations.add("Станция 3");
-        stations.add("Станция 4");
-        stations.add("Станция 5");
-        stations.add("Станция 6");
+        context = new FavouriteContext(this.getActivity().getApplicationContext());
+        for (String station : context.getFavouriteStationsNames())
+        	stations.add(station);
+        
         listDataChild.put(listDataHeader.get(0), stations);
         
         listDataHeader.add("Маршрут");

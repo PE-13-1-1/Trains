@@ -5,7 +5,7 @@ import java.util.List;
 
 import ua.kture.pi1311.dao.StationDAO;
 import ua.kture.pi1311.dao.TrainDAO;
-import ua.kture.pi1311.dao.mssql.MSsqlDAOFactory;
+import ua.kture.pi1311.dao.sqlite.SQLiteDAOFactory;
 import ua.kture.pi1311.entity.Station;
 import ua.kture.pi1311.entity.Stop;
 import ua.kture.pi1311.entity.Train;
@@ -18,7 +18,7 @@ public class TrainContext implements ITrainContext {
 		boolean st1 = false, st2 = false;
 		ArrayList<Train> result = new ArrayList<Train>();
 		
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		TrainDAO trainDAO = fact.getTrainDAO();
 		List<Train> trainList = trainDAO.findAllTrains();
 		
@@ -45,7 +45,7 @@ public class TrainContext implements ITrainContext {
 	{
 		ArrayList<Train> result = new ArrayList<Train>();
 		
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		TrainDAO trainDAO = fact.getTrainDAO();
 		List<Train> trainList = trainDAO.findAllTrains();
 		
@@ -70,7 +70,7 @@ public class TrainContext implements ITrainContext {
 		for (Stop stop : train.getStops())
 			ids.add(stop.getStationId());
 		
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		StationDAO stationDAO = fact.getStationDAO();
 		List<Station> stationList = stationDAO.findAllStations();
 		
@@ -94,7 +94,7 @@ public class TrainContext implements ITrainContext {
 	@Override
 	public Station GetStationByStop(Stop stop) 
 	{
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		StationDAO stationDAO = fact.getStationDAO();
 		return stationDAO.findStation(stop.getStationId());
 	}
@@ -102,16 +102,15 @@ public class TrainContext implements ITrainContext {
 	@Override
 	public Train GetTrainByStop(Stop stop)
 	{
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		TrainDAO trainDAO = fact.getTrainDAO();
 		return trainDAO.findTrain(stop.getStationId());
 	}
 
-	
 	@Override
 	public Station GetStationByName(String stationName) 
 	{
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		StationDAO stationDAO = fact.getStationDAO();
 		List<Station> stationList = stationDAO.findAllStations();
 		
@@ -122,11 +121,10 @@ public class TrainContext implements ITrainContext {
 		return null;
 	}
 
-	
 	@Override
 	public Train GetTrainByNumber(int number) 
 	{
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		TrainDAO trainDAO = fact.getTrainDAO();
 		List<Train> trainList = trainDAO.findAllTrains();
 		
@@ -137,12 +135,11 @@ public class TrainContext implements ITrainContext {
 		return null;
 	}
 
-	
 	@Override
 	public ArrayList<Station> GetStationsByPartialName(String partialName) 
 	{
 		ArrayList<Station> result = new ArrayList<Station>();
-		MSsqlDAOFactory fact = new MSsqlDAOFactory();
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
 		StationDAO stationDAO = fact.getStationDAO();
 		List<Station> stationList = stationDAO.findAllStations();
 		
@@ -153,4 +150,17 @@ public class TrainContext implements ITrainContext {
 		return result;
 	}
 	
+	public ArrayList<Station> GetAllStations()
+	{
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
+		StationDAO stationDAO = fact.getStationDAO();
+		return stationDAO.findAllStations();
+	}
+	
+	public ArrayList<Train> GetAllTrains()
+	{
+		SQLiteDAOFactory fact = new SQLiteDAOFactory();
+		TrainDAO trainDAO = fact.getTrainDAO();
+		return trainDAO.findAllTrains();
+	}
 }
