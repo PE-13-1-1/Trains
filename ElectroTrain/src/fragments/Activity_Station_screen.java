@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,9 +53,12 @@ public class Activity_Station_screen extends Fragment {
                 int position, long id) {
             	Fragment fragment = new Activity_Train();
              	FragmentManager fragmentManager2 = getFragmentManager();
-             	//FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-             	fragmentManager2.beginTransaction()
-                .replace(R.id.content_frame, fragment).commit();
+             	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
+            	fragmentTransaction.replace(R.id.content_frame, fragment);
+            	fragmentTransaction.addToBackStack(null);
+            	fragmentTransaction.commit();
+             	//fragmentManager2.beginTransaction()
+                //.replace(R.id.content_frame, fragment).commit();
             }
           });
         fav_but=(ImageButton) rootView.findViewById(R.id.fav_but);

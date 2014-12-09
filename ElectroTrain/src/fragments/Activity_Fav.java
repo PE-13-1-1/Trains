@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,13 +66,22 @@ public class Activity_Fav extends Fragment {
             		String stationName = (String) parent.getExpandableListAdapter().getChild(groupPosition, groupPosition);
                 	Fragment fragment = new Activity_Station_screen(stationName, context.getTrainsForStation(stationName));
             		FragmentManager fragmentManager2 = getFragmentManager();
-                 	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+                 	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
+                	fragmentTransaction.replace(R.id.content_frame, fragment);
+                	fragmentTransaction.addToBackStack(null);
+                	fragmentTransaction.commit();
+                 	//fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
             	}
             	if (groupPosition == 1)
             	{
                 	Fragment fragment = new Activity_Way_screen();
             		FragmentManager fragmentManager2 = getFragmentManager();
-                 	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+                 	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
+                	fragmentTransaction.replace(R.id.content_frame, fragment);
+                	fragmentTransaction.addToBackStack(null);
+                	
+                	fragmentTransaction.commit();
+                 	//fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
             	}
                  return false;
                 }

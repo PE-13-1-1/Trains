@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -176,10 +177,15 @@ public class MainActivity extends ActionBarActivity {
  
         // Insert the fragment by replacing any existing fragment
         if (fragment != null) {
+        	//FragmentTransaction tx = getSupportFragmentManager().beginTransation();
+        	//tx.replace( R.id.content_frame, fragment ).addToBackStack( "tag" ).commit();
         	FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment).commit();
- 
+        	FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        	fragmentTransaction.replace(R.id.content_frame, fragment);
+        	fragmentTransaction.addToBackStack(null);
+        	fragmentTransaction.commit();
+            //fragmentManager.beginTransaction()
+                    //.replace(R.id.content_frame, fragment).commit();
             // Highlight the selected item, update the title, and close the drawer
     	    mDrawerList.setItemChecked(position, true);
     	    setTitle(mScreenTitles[position]);

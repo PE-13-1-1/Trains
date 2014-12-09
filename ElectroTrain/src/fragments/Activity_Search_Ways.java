@@ -7,6 +7,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -65,7 +66,11 @@ public class Activity_Search_Ways extends Fragment {
             	Fragment fragment = new Activity_Way_screen();
              	Fragment parent=getParentFragment();
              	FragmentManager fragmentManager2 = parent.getFragmentManager();
-             	fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+             	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
+            	fragmentTransaction.replace(R.id.content_frame, fragment);
+            	fragmentTransaction.addToBackStack(null);
+            	fragmentTransaction.commit();
+             	//fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
              }
          });

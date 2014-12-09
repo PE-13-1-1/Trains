@@ -19,9 +19,10 @@
 
         <ImageButton
             android:id="@+id/fav_but"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@android:color/transparent"
+            android:scaleType="center"
             android:src="@drawable/filledstar" />
 
     </LinearLayout>
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:paddingRight="10dp"
             android:text="Обновлено 24.12.14" />
 
         <ImageButton

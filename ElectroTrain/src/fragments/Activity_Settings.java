@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
  
 import org.apache.http.Header;
@@ -51,8 +52,9 @@ import ua.kture.pi1311.entity.Train;
 
 public class Activity_Settings extends Fragment {
         Button b1;
-        Train tr;
+        ArrayList<Train> tr;
         TextView t1;
+        TextView t2;
  
 
 	
@@ -68,9 +70,10 @@ public class Activity_Settings extends Fragment {
                 false);
         b1 = (Button)rootView.findViewById(R.id.button1);
         t1 = (TextView)rootView.findViewById(R.id.textView1);
+        t2 = (TextView)rootView.findViewById(R.id.textView2);
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                postData();
+            	new DownloadWebpageTask().execute("http://178.150.137.228:8080/Server/");
             }
         });
         
@@ -166,7 +169,7 @@ public class Activity_Settings extends Fragment {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-                t1.setText((String)tr.getStartPoint());
+                t1.setText((String)tr.get(0).getStartPoint());
             b1.setText(result);
        }
     }
@@ -187,7 +190,7 @@ public class Activity_Settings extends Fragment {
     private String downloadUrl(String myurl) throws IOException {
          HttpClient httpclient = new DefaultHttpClient();
      HttpPost httppost = new HttpPost("http://178.150.137.228:8080/Server/");
- 
+     
     //List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
     //nameValuePairs.add(new BasicNameValuePair("method", "twoplustwo"));
     //httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -196,6 +199,9 @@ public class Activity_Settings extends Fragment {
     List<NameValuePair> params = new ArrayList<NameValuePair>(2);
     params.add(new BasicNameValuePair("method", "2"));
     params.add(new BasicNameValuePair("number" ,"1"));
+    //params.add(new BasicNameValuePair("method", "0"));
+    //params.add(new BasicNameValuePair("name_1" ,"Харьков"));
+    //params.add(new BasicNameValuePair("name_2" ,"Казачья Лопань"));
     httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
     //httppost.setParams(n);
     //httppost.setHeader("method", "twoplustwo");
@@ -206,7 +212,7 @@ public class Activity_Settings extends Fragment {
     //InputStream is = entity.getContent();
     //String s = convertStreamToString(is);
     try {
-                tr = (Train)in.readObject();
+                tr = (ArrayList<Train>)in.readObject();
                 //t1.setText((String)tr.getStartPoint());
         } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -224,8 +230,8 @@ public class Activity_Settings extends Fragment {
     //String s = convertStreamToString(is);
     return "1";
     }
-    public void postData() {
-        new DownloadWebpageTask().execute("http://178.150.137.228:8080/Server/");
+    //public void postData() {
+        //new DownloadWebpageTask().execute("http://178.150.137.228:8080/Server/");
         // Create a new HttpClient and Post Header
        /*
         try {
@@ -246,6 +252,6 @@ public class Activity_Settings extends Fragment {
             // TODO Auto-generated catch block
         }
         */
-    }
+    //}
 
 }
