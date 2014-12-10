@@ -23,7 +23,7 @@
             android:layout_height="60dp"
             android:background="@android:color/transparent"
             android:scaleType="center"
-            android:src="@drawable/filledstar" />
+            android:src="@drawable/emptystar" />
 
     </LinearLayout>
 

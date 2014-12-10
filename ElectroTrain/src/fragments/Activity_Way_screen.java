@@ -31,6 +31,7 @@ public class Activity_Way_screen extends Fragment {
 	FragmentPagerAdapter adapterViewPager;
     ImageButton fav_but;
 	ImageButton refresh_but;
+	boolean favouriteFlag = false;
 	
 	String[] stationsFrom;
 	String[] stationsTo;
@@ -128,15 +129,29 @@ public class Activity_Way_screen extends Fragment {
           });
         fav_but=(ImageButton) rootView.findViewById(R.id.fav_but);
         fav_but.setTag(1);
-        fav_but.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	
-            	ImageButton b=(ImageButton) v.findViewById(R.id.fav_but);
-            	Drawable empty = getResources().getDrawable(R.drawable.emptystar);
-            	Drawable fill = getResources().getDrawable(R.drawable.filledstar);
-            	b.setImageDrawable(empty);
-            }
-        });
+        fav_but.setOnClickListener(
+        	new View.OnClickListener() 
+        	{
+	            public void onClick(View v) 
+	            {
+	            	ImageButton b=(ImageButton) v.findViewById(R.id.fav_but);
+	            	if(favouriteFlag)
+	            	{
+	            		Drawable emptyStar = getResources().getDrawable(R.drawable.emptystar);
+	            		b.setImageDrawable(emptyStar);
+	            		favouriteFlag = false;
+	            		// place for RUD	            		            		
+	            	}
+	            	else
+	            	{
+	            		Drawable fillStar = getResources().getDrawable(R.drawable.filledstar);
+	            		b.setImageDrawable(fillStar);
+	            		favouriteFlag = true;
+	            		//place for RUD	
+	            	}
+	            }
+        	}
+        );
         refresh_but=(ImageButton) rootView.findViewById(R.id.refresh_but);
         refresh_but.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
