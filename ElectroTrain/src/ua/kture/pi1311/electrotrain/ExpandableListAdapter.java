@@ -74,6 +74,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         
         // I donno how to change any external variable =(
         // I tried, but it seems, Java doesn't have any ref vars.
+        /*
         button.setOnLongClickListener(new View.OnLongClickListener()
     	{
 			public boolean onLongClick(View v)
@@ -83,7 +84,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 				return false;
 			}
 		});
-        
+        */
         return convertView;
     }
     

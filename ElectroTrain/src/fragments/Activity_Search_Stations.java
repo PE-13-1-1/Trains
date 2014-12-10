@@ -1,9 +1,21 @@
 package fragments;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +42,7 @@ import ua.kture.pi1311.context.StoredStationsContext;
 import ua.kture.pi1311.context.TrainContext;
 import ua.kture.pi1311.electrotrain.ExpandableListAdapter;
 import ua.kture.pi1311.electrotrain.R;
+import ua.kture.pi1311.entity.Train;
 
 public class Activity_Search_Stations extends Fragment {
 	
@@ -40,6 +53,7 @@ public class Activity_Search_Stations extends Fragment {
     EditText inputSearch_s;
     ArrayList<HashMap<String, String>> trainList;
     ImageButton search_but;
+    ArrayList<Train> trains;
     
 	
     public Activity_Search_Stations() 
@@ -88,4 +102,49 @@ public class Activity_Search_Stations extends Fragment {
 	    
         return rootView;
     }
+    private class DownloadStationTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+             
+            // params comes from the execute() call: params[0] is the url.
+            try {
+                return downloadStationUrl(urls[0]);
+            } catch (IOException e) {
+                return "Unable to retrieve web page. URL may be invalid.";
+            }
+        }
+        @Override
+        protected void onPostExecute(String result) {
+               
+                Fragment fragment = new Activity_Station_screen();
+                Fragment parent=getParentFragment();
+                FragmentManager fragmentManager2 = parent.getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+       }
+    }
+    private String downloadStationUrl(String myurl) throws IOException {
+        HttpClient httpclient = new DefaultHttpClient();
+    HttpPost httppost = new HttpPost("http://178.150.137.228:8080/Server/");
+   List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+   params.add(new BasicNameValuePair("method", "1"));
+   params.add(new BasicNameValuePair("stationName" ,"Занки"));
+   httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+   HttpResponse response = httpclient.execute(httppost);
+   HttpEntity entity = response.getEntity();
+ 
+   ObjectInputStream in = new ObjectInputStream(entity.getContent());
+   try {
+               trains = (ArrayList<Train>)in.readObject();
+               //t1.setText((String)tr.getStartPoint());
+       } catch (ClassNotFoundException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+       }
+   in.close();
+   return "1";
+   }
+ 
 }
