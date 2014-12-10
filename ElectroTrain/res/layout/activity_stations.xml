@@ -23,7 +23,7 @@
             android:layout_height="60dp"
             android:layout_weight="0.10"
             android:background="@android:color/transparent"
-            android:src="@drawable/emptystar" />
+            android:src="@drawable/filledstar" />
 
     </LinearLayout>
 
@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/refresh_but"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/update" 
             android:background="@android:color/transparent"/>
 

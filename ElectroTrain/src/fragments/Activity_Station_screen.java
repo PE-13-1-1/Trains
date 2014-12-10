@@ -119,35 +119,42 @@ public class Activity_Station_screen extends Fragment
         
         fav_but=(ImageButton) rootView.findViewById(R.id.fav_but);
         fav_but.setOnClickListener(
-            	new View.OnClickListener() 
-            	{
-    	            public void onClick(View v) 
-    	            {
-    	            	ImageButton b=(ImageButton) v.findViewById(R.id.fav_but);
-    	            	if(favouriteFlag)
-    	            	{
-    	            		Drawable emptyStar = getResources().getDrawable(R.drawable.emptystar);
-    	            		b.setImageDrawable(emptyStar);
-    	            		favouriteFlag = false;
-    	            		// place for RUD	            		            		
-    	            	}
-    	            	else
-    	            	{
-    	            		Drawable fillStar = getResources().getDrawable(R.drawable.filledstar);
-    	            		b.setImageDrawable(fillStar);
-    	            		favouriteFlag = true;
-    	            		//place for RUD	
-    	            	}
-    	            }
-            	}
-            );
+        	new View.OnClickListener() 
+        	{
+	            public void onClick(View v) 
+	            {
+	            	ImageButton b=(ImageButton) v.findViewById(R.id.fav_but);
+	            	if(favouriteFlag)
+	            	{
+	            		Drawable emptyStar = getResources().getDrawable(R.drawable.emptystar);
+	            		b.setImageDrawable(emptyStar);
+	            		favouriteFlag = false;
+	            		// place for RUD	            		            		
+	            	}
+	            	else
+	            	{
+	            		Drawable fillStar = getResources().getDrawable(R.drawable.filledstar);
+	            		b.setImageDrawable(fillStar);
+	            		favouriteFlag = true;
+	            		//place for RUD	
+	            	}
+	            }
+        	}
+        );
         
         refresh_but=(ImageButton) rootView.findViewById(R.id.refresh_but);
         refresh_but.setOnClickListener
         (
     		new View.OnClickListener() 
 	        {
-	            public void onClick(View v) { }
+	            public void onClick(View v) 
+	            {
+	            	 ImageButton button = (ImageButton)v;
+	            	 //Drawable background = (Drawable) "@drawable/updateanimation";
+	            	 Drawable background = getResources().getDrawable(R.drawable.updateanimation);
+	            	 button.setImageDrawable(background);
+	            	 
+	            }
 	        }
     	);
         return rootView;
