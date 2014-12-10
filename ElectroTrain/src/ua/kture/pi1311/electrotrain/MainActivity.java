@@ -180,12 +180,12 @@ public class MainActivity extends ActionBarActivity {
         	//FragmentTransaction tx = getSupportFragmentManager().beginTransation();
         	//tx.replace( R.id.content_frame, fragment ).addToBackStack( "tag" ).commit();
         	FragmentManager fragmentManager = getSupportFragmentManager();
-        	FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        	fragmentTransaction.replace(R.id.content_frame, fragment);
-        	fragmentTransaction.addToBackStack(null);
-        	fragmentTransaction.commit();
-            //fragmentManager.beginTransaction()
-                    //.replace(R.id.content_frame, fragment).commit();
+        	//FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        	//fragmentTransaction.replace(R.id.content_frame, fragment);
+        	//fragmentTransaction.addToBackStack(null);
+        	//fragmentTransaction.commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment).commit();
             // Highlight the selected item, update the title, and close the drawer
     	    mDrawerList.setItemChecked(position, true);
     	    setTitle(mScreenTitles[position]);

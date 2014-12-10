@@ -59,7 +59,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
  
         txtListChild.setText(childText);
         ImageButton button = (ImageButton)convertView.findViewById(R.id.fav_but);
-        
+        button.setFocusable(false);
         
         final View myConvertView = convertView;
         button.setOnClickListener(new View.OnClickListener() {
