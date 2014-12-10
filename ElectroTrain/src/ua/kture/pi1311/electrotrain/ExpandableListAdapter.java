@@ -61,60 +61,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         ImageButton button = (ImageButton)convertView.findViewById(R.id.fav_but);
         
         
-        //button.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View view) {
-        //        view.setBackgroundColor(Color.CYAN);    	
-        //    }
-        //});
-        
         final View myConvertView = convertView;
-        final int externalCount = 0;
-        //final int count = externalCount;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	myConvertView.setBackgroundColor(Color.parseColor("#355723"));
+            	//Deleting item should be here, RUD
+            }
+        });
         
-        // I donno how to change any external variable =(
-        // I tried, but it seems, Java doesn't have any ref vars.
-        /*
-        button.setOnLongClickListener(new View.OnLongClickListener()
-    	{
-			public boolean onLongClick(View v)
-			{
-				int count = externalCount;
-				count = listItemPaintMethod(externalCount, myConvertView);
-				return false;
-			}
-		});
-        */
         return convertView;
     }
     
-    private int listItemPaintMethod(int count, View myConvertView)
-    {
-    	/*if(count == 0)
-		{
-			myConvertView.setBackgroundColor(Color.parseColor("#CBE8BA"));
-			count++;
-		}
-		else if (count == 1)
-		{
-			myConvertView.setBackgroundColor(Color.parseColor("#5aa532"));
-			count++;
-		}
-		else if (count == 2)
-		{
-			myConvertView.setBackgroundColor(Color.parseColor("#355723"));
-			count++;
-		}
-		else if (count == 3)
-		{
-			myConvertView.setBackgroundColor(Color.RED);
-			count = 0;
-		}*/
-    	myConvertView.setBackgroundColor(Color.RED);
-    	return count;
-    }
-    
- 
     @Override
     public int getChildrenCount(int groupPosition) {
         return this._listDataChild.get(this._listDataHeader.get(groupPosition))
