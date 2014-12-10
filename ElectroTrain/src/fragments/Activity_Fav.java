@@ -33,62 +33,69 @@ public class Activity_Fav extends Fragment {
     HashMap<String, List<String>> listDataChild;
     FavouriteContext context;
     
-    public Activity_Fav() {
-    	
-    }
+    
+    public Activity_Fav() 
+    { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.activity_fav, container,
-                false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
+    {
+        View rootView = inflater.inflate(R.layout.activity_fav, container, false);
         expListView = (ExpandableListView) rootView.findViewById(R.id.Stations_List);
         prepareListData();
         listAdapter = new ExpandableListAdapter(rootView.getContext(), listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
         
-        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+        expListView.setOnGroupExpandListener(new OnGroupExpandListener()
+        {
             int previousItem = -1;
-
             @Override
-            public void onGroupExpand(int groupPosition) {
+            public void onGroupExpand(int groupPosition)
+            {
                 if(groupPosition != previousItem )
                     expListView.collapseGroup(previousItem );
                 previousItem = groupPosition;
             }
         });
-        expListView.setOnChildClickListener(new OnChildClickListener() {
-            public boolean onChildClick(ExpandableListView parent, View v,
-                    int groupPosition,   int childPosition, long id) {
-            	if (groupPosition == 0)
-            	{
-            		String stationName = (String) parent.getExpandableListAdapter().getChild(groupPosition, groupPosition);
-                	Fragment fragment = new Activity_Station_screen(stationName, context.getTrainsForStation(stationName));
-            		FragmentManager fragmentManager2 = getFragmentManager();
-                 	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
-                	fragmentTransaction.replace(R.id.content_frame, fragment);
-                	fragmentTransaction.addToBackStack(null);
-                	fragmentTransaction.commit();
-                 	//fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
-            	}
-            	if (groupPosition == 1)
-            	{
-                	Fragment fragment = new Activity_Way_screen();
-            		FragmentManager fragmentManager2 = getFragmentManager();
-                 	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
-                	fragmentTransaction.replace(R.id.content_frame, fragment);
-                	fragmentTransaction.addToBackStack(null);
-                	
-                	fragmentTransaction.commit();
-                 	//fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
-            	}
-                 return false;
-                }
-              });
+        
+        expListView.setOnChildClickListener
+        (
+    		new OnChildClickListener() 
+    		{
+    			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
+    																			int childPosition, long id) 
+    			{
+	            	if (groupPosition == 0)
+	            	{
+	            		String stationName = (String) parent.getExpandableListAdapter().getChild(groupPosition, groupPosition);
+	                	Fragment fragment = new Activity_Station_screen(stationName, context.getTrainsForStation(stationName));
+	            		FragmentManager fragmentManager2 = getFragmentManager();
+	                 	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
+	                	fragmentTransaction.replace(R.id.content_frame, fragment);
+	                	fragmentTransaction.addToBackStack(null);
+	                	fragmentTransaction.commit();
+	                 	//fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	            	}
+	            	else if (groupPosition == 1)
+	            	{
+	                	Fragment fragment = new Activity_Way_screen();
+	            		FragmentManager fragmentManager2 = getFragmentManager();
+	                 	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
+	                	fragmentTransaction.replace(R.id.content_frame, fragment);
+	                	fragmentTransaction.addToBackStack(null);
+	                	
+	                	fragmentTransaction.commit();
+	                 	//fragmentManager2.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	            	}
+	                return false;
+    			}
+    		}
+        );
         return rootView;
     }
-    private void prepareListData() {
+
+    private void prepareListData() 
+    {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
         
@@ -100,8 +107,11 @@ public class Activity_Fav extends Fragment {
         	//stations.add(station);
         
         //listDataChild.put(listDataHeader.get(0), stations);
+        stations.add("test1");
+        stations.add("test2");
+        listDataChild.put(listDataHeader.get(0), stations);
         
-        listDataHeader.add("Маршрут");
+        listDataHeader.add("Маршруты");
         List<String> ways = new ArrayList<String>();
         
         ways.add("Маршрут 1");
@@ -111,7 +121,5 @@ public class Activity_Fav extends Fragment {
         ways.add("Маршрут 5");
         ways.add("Маршрут 6");
         listDataChild.put(listDataHeader.get(1), ways);
-        }
-	
-
+    }
 }
