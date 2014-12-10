@@ -10,12 +10,18 @@ import android.widget.TextView;
 
 public class Adapter_for_trains extends ArrayAdapter<String> {
   private final Context context;
-  private final String[] values;
+  private final String[] stopsNames;
+  private final String[] arrivals;
+  private final String[] departures;
+  
 
-  public Adapter_for_trains(Context context, String[] values) {
-    super(context, R.layout.train_item, values);
+  public Adapter_for_trains(Context context, String[] stopsNames, String[] arrivals,
+		  String[] departures) {
+    super(context, R.layout.train_item, stopsNames);
     this.context = context;
-    this.values = values;
+    this.stopsNames = stopsNames;
+    this.arrivals = arrivals;
+    this.departures = departures;
   }
 
   @Override
@@ -25,8 +31,10 @@ public class Adapter_for_trains extends ArrayAdapter<String> {
     View rowView = inflater.inflate(R.layout.stop_item, parent, false);
     TextView textView1 = (TextView) rowView.findViewById(R.id.label);
     TextView textView2 = (TextView) rowView.findViewById(R.id.label2);
-    textView1.setText(values[position]);
-    textView2.setText("Huipoezda");
+    TextView textView3 = (TextView) rowView.findViewById(R.id.textView3);
+    textView1.setText(stopsNames[position]);
+    textView2.setText(arrivals[position]);
+    textView3.setText(departures[position]);
     // Change the icon for Windows and iPhone
     return rowView;
   }

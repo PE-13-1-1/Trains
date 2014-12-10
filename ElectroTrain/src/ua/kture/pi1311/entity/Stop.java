@@ -13,6 +13,8 @@ public class Stop implements Serializable {
 
 	private int trainId;
 
+	private String stationName;
+	
 	private Time timeArrival;
 
 	private Time timeDeparture;
@@ -78,6 +80,14 @@ public class Stop implements Serializable {
 
 	public void setTimeDeparture(Time timeDeparture) {
 		this.timeDeparture = timeDeparture;
+	}
+
+	public String getStationName() {
+		return stationName;
+	}
+
+	public void setStationName(String stationName) {
+		this.stationName = stationName;
 	}
 
 }

@@ -22,47 +22,61 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
 
+import ua.kture.pi1311.context.StoredStationsContext;
+import ua.kture.pi1311.context.TrainContext;
 import ua.kture.pi1311.electrotrain.ExpandableListAdapter;
 import ua.kture.pi1311.electrotrain.R;
 
 public class Activity_Search_Ways extends Fragment {
 	
-	AutoCompleteTextView mAutoComplete;
-	final String[]  stations = { "Belgium", "France", "Italy", "Germany", "Spain","Germ" };
+	AutoCompleteTextView mAutoCompleteFirst;
+	AutoCompleteTextView mAutoCompleteSecond;
+	String[]  stations;
     private ListView lv_s;
     ArrayAdapter<String> adapter_s;
     EditText inputSearch_s;
     ArrayList<HashMap<String, String>> trainList;
     ImageButton search_but;
 	ImageButton swap_but;
-    public Activity_Search_Ways() {
+    public Activity_Search_Ways() 
+    {
     	
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_search_ways, container,
-                false);
+            Bundle savedInstanceState) 
+            {
+    	 StoredStationsContext context = new StoredStationsContext(this.getActivity().getApplicationContext());
+    	 if (context.isEmpty())
+    		 context.fillDatabase();
+    	 ArrayList<String> list = context.getStationNames();
+    	 stations = list.toArray(new String[list.size()]);
+    	
+         View rootView = inflater.inflate(R.layout.activity_search_ways, container,
+                 false);
 
-		
+         mAutoCompleteFirst = (AutoCompleteTextView) rootView.findViewById(R.id.search_way1);
+         mAutoCompleteSecond = (AutoCompleteTextView) rootView.findViewById(R.id.search_way2);
+         
 		 ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(),
                  android.R.layout.simple_dropdown_item_1line, stations);
-         AutoCompleteTextView textView = (AutoCompleteTextView)
-        		 rootView.findViewById(R.id.search_way1);
-         textView.setAdapter(adapter);
-         textView.setThreshold(0);
+		 mAutoCompleteFirst.setAdapter(adapter);
+		 mAutoCompleteFirst.setThreshold(0);
 
          adapter = new ArrayAdapter<String>(rootView.getContext(),
                  android.R.layout.simple_dropdown_item_1line, stations);
-         textView = (AutoCompleteTextView)
-        		 rootView.findViewById(R.id.search_way2);
-         textView.setAdapter(adapter);
-         textView.setThreshold(0);
+         mAutoCompleteSecond.setAdapter(adapter);
+         mAutoCompleteSecond.setThreshold(0);
 		
          search_but=(ImageButton) rootView.findViewById(R.id.search_but);
          search_but.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
+            	String stationNameFirst = mAutoCompleteFirst.getText().toString();
+            	String stationNameSecond = mAutoCompleteSecond.getText().toString();
+             	TrainContext context = new TrainContext();
+             	String[][] trainInfo = context.getTrainsByStationNames(stationNameFirst, stationNameSecond);
+            	 
             	Fragment fragment = new Activity_Way_screen();
              	Fragment parent=getParentFragment();
              	FragmentManager fragmentManager2 = parent.getFragmentManager();
@@ -88,6 +102,8 @@ public class Activity_Search_Ways extends Fragment {
             	 //String s2=temp.toString();
             	 t1.setText(t2.getText());
             	 t2.setText(temp);
+            	 t2.clearFocus();
+            	 t1.clearFocus();
 
              }
          });

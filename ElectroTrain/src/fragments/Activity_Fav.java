@@ -18,6 +18,7 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.TextView;
 
 import ua.kture.pi1311.context.FavouriteContext;
+import ua.kture.pi1311.context.StoredStationsContext;
 import ua.kture.pi1311.dao.DAOFactory;
 import ua.kture.pi1311.dao.StationDAO;
 import ua.kture.pi1311.dao.TrainDAO;
@@ -31,7 +32,7 @@ public class Activity_Fav extends Fragment {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    FavouriteContext context;
+    StoredStationsContext context;
     
     
     public Activity_Fav() 
@@ -68,7 +69,7 @@ public class Activity_Fav extends Fragment {
 	            	if (groupPosition == 0)
 	            	{
 	            		String stationName = (String) parent.getExpandableListAdapter().getChild(groupPosition, groupPosition);
-	                	Fragment fragment = new Activity_Station_screen(stationName, context.getTrainsForStation(stationName));
+	                	Fragment fragment = new Activity_Station_screen();
 	            		FragmentManager fragmentManager2 = getFragmentManager();
 	                 	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
 	                	fragmentTransaction.replace(R.id.content_frame, fragment);
@@ -107,8 +108,15 @@ public class Activity_Fav extends Fragment {
         	//stations.add(station);
         
         //listDataChild.put(listDataHeader.get(0), stations);
-        stations.add("test1");
-        stations.add("test2");
+        context = new StoredStationsContext(this.getActivity().getApplicationContext());
+        if (context.isEmpty())
+        	context.fillDatabase();
+        
+        ArrayList<String> st = context.getStationNames();
+        
+        for (int i = 0; i < 10; i++)
+        	stations.add(st.get(i));
+        
         listDataChild.put(listDataHeader.get(0), stations);
         
         listDataHeader.add("Маршруты");

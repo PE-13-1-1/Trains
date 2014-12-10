@@ -10,12 +10,23 @@ import android.widget.TextView;
 
 public class Adapter_for_stations extends ArrayAdapter<String> {
   private final Context context;
-  private final String[] values;
+  private final String[] stationsFrom;
+  private final String[] stationsTo;
+  private final String[] arrivals;
+  private final String[] depatures;
+  private final String[] trainsIds;
+  
 
-  public Adapter_for_stations(Context context, String[] values) {
-    super(context, R.layout.train_item, values);
+  public Adapter_for_stations(Context context, String[] stationsFrom, String[] stationsTo,
+		String[] arrivals, String[] depatures, String[] trainsIds) 
+  {
+    super(context, R.layout.train_item, stationsFrom);
     this.context = context;
-    this.values = values;
+    this.stationsFrom = stationsFrom;
+    this.stationsTo = stationsTo;
+    this.arrivals = arrivals;
+    this.depatures = depatures;
+    this.trainsIds = trainsIds;
   }
 
   @Override
@@ -25,8 +36,14 @@ public class Adapter_for_stations extends ArrayAdapter<String> {
     View rowView = inflater.inflate(R.layout.train_item, parent, false);
     TextView textView1 = (TextView) rowView.findViewById(R.id.label);
     TextView textView2 = (TextView) rowView.findViewById(R.id.label2);
-    textView1.setText(values[position]);
-    textView2.setText("Hui");
+    TextView textView3 = (TextView) rowView.findViewById(R.id.textView3);
+    TextView textView4 = (TextView) rowView.findViewById(R.id.textView4);
+    TextView textView5 = (TextView) rowView.findViewById(R.id.textViewTrainId);
+    textView1.setText(stationsFrom[position]);
+    textView2.setText(stationsTo[position]);
+    textView3.setText(arrivals[position]);
+    textView4.setText(depatures[position]);
+    textView5.setText(trainsIds[position]);
     // Change the icon for Windows and iPhone
     return rowView;
   }

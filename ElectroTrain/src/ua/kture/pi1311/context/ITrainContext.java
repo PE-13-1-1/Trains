@@ -8,21 +8,9 @@ import ua.kture.pi1311.entity.Train;
 
 public interface ITrainContext
 {
-	public ArrayList<Train> GetTrainsWithinStations(Station station1, Station station2);
+	public String[][] getTrainsByStationName(String stationName);
 	
-	public ArrayList<Train> GetTrainsByStation(Station station);
+	public ArrayList<Stop> getStopsByTrainId(int trainId);
 	
-	public ArrayList<Station> GetStationsByTrain(Train train);
-	
-	public Stop GetStopByTrainAndStation(Train train, Station station);
-	
-	public Station GetStationByStop(Stop stop);
-	
-	public Train GetTrainByStop(Stop stop);
-	
-	public Station GetStationByName(String stationName);
-	
-	public ArrayList<Station> GetStationsByPartialName(String partialName);
-	
-	public Train GetTrainByNumber(int number);
+	public String[][] getTrainsByStationNames(String stationNameFirst, String stationNameSecond);
 }
