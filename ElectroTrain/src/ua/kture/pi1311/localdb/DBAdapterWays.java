@@ -18,8 +18,8 @@ public class DBAdapterWays
 	public static final String KEY_ARRIVALTOFIRST = "arrivaltofirst";
 	public static final String KEY_ARRIVALTOSECOND = "arrivaltosecond";
 	
-	private static final String DATABASE_NAME = "StationsDB";
-	private static final String DATABASE_TABLE = "stations";
+	private static final String DATABASE_NAME = "WaysDB";
+	private static final String DATABASE_TABLE = "ways";
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_CREATE = 
 					"create table if not exists ways ("

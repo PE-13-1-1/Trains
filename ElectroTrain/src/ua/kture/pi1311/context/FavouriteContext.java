@@ -8,16 +8,19 @@ import ua.kture.pi1311.entity.Station;
 import ua.kture.pi1311.entity.Stop;
 import ua.kture.pi1311.entity.Train;
 import ua.kture.pi1311.localdb.DBAdapterStations;
+import ua.kture.pi1311.localdb.DBAdapterTrains;
 import ua.kture.pi1311.localdb.DBAdapterWays;
 
 public class FavouriteContext 
 {
 	private DBAdapterStations adapterStations;
 	private DBAdapterWays adapterWays;
+	private DBAdapterTrains adapterTrains;
 	
 	public FavouriteContext(Context context)
 	{
 		adapterStations = new DBAdapterStations(context);
+		adapterTrains = new DBAdapterTrains(context);
 		adapterWays = new DBAdapterWays(context);
 	}
 	
@@ -85,6 +88,26 @@ public class FavouriteContext
 		{
 			return false;
 		}
+	
+	public boolean addTrainToFavourite(int trainNumber, ArrayList<Stop> stops)
+	{
+		try
+		{
+			adapterTrains.open();
+			
+			for (Stop stop : stops)
+			{
+				adapterTrains.insertWay(trainNumber, stop.getStationName(),
+						stop.getTimeArrival().toString(), stop.getTimeDeparture().toString());
+			}
+			
+			adapterTrains.close();
+			return true;
+		}
+		catch (Exception exception)
+		{
+			return false;
+		}
 	}
 	
 	public ArrayList<String> getFavouriteStationsNames()
@@ -116,6 +139,35 @@ public class FavouriteContext
 		return result;
 	}
 
+	public ArrayList<Integer> getFavouriteTrainsNumbers()
+	{
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+		adapterTrains.open();
+		
+		Cursor cur = adapterTrains.getAllRecords();
+		
+		
+		if (cur.moveToFirst())
+		{
+			do
+			{
+				String trainNumber = cur.getString(cur.getColumnIndex("stationname"));
+				if (!result.contains(Integer.parseInt(trainNumber)))
+					result.add(Integer.parseInt(trainNumber));
+			}
+			while (cur.moveToNext());
+		}
+		else 
+			{
+				adapterTrains.close();
+				return null;
+			}
+
+		adapterTrains.close();
+		return result;
+	}
+	
 	public ArrayList<String> getFavouriveWaysNames()
 	{
 		ArrayList<String> result = new ArrayList<String>();
@@ -178,6 +230,37 @@ public class FavouriteContext
 		return result;
 	}
 
+	public ArrayList<ArrayList<String>> getStopsForTrain(int trainNumber)
+	{
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		
+		adapterTrains.open();
+		
+		Cursor cur = adapterTrains.getWay(trainNumber);
+		
+		if (cur.moveToFirst())
+		{
+			do
+			{
+				ArrayList<String> train = new ArrayList<String>();
+				train.add(cur.getString(cur.getColumnIndex("stationname")));
+				train.add(cur.getString(cur.getColumnIndex("srrival")));
+				train.add(cur.getString(cur.getColumnIndex("departure")));
+				if (!result.contains(train))
+					result.add(train);
+			}
+			while (cur.moveToNext());
+		}
+		else
+		{
+			adapterTrains.close();
+			return null;
+		}
+
+		adapterTrains.close();
+		return result;
+	}
+	
 	public ArrayList<ArrayList<String>> getTrainsForWay(String stationNameFirst, String stationNameSecond)
 	{
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
@@ -210,13 +293,28 @@ public class FavouriteContext
 		return result;
 	}
 
-	public boolean deleteStationFromFovourite(String stationName)
+	public boolean deleteStationFromFavourite(String stationName)
 	{
 		try
 		{
 			adapterStations.open();
 			adapterStations.deleteStation(stationName);
 			adapterStations.close();
+			return true;
+		}
+		catch (Exception exception)
+		{
+			return false;
+		}
+	}
+	
+	public boolean deleteTrainFromFavourite(int trainNumber)
+	{
+		try
+		{
+			adapterTrains.open();
+			adapterTrains.deleteWay(trainNumber);
+			adapterTrains.close();
 			return true;
 		}
 		catch (Exception exception)
@@ -245,6 +343,14 @@ public class FavouriteContext
 		adapterStations.open();
 		Cursor cur = adapterStations.getStation(stationName);
 		adapterStations.close();
+		return cur == null;
+	}
+	
+	public boolean isFavouriteTrain(int trainNumber)
+	{
+		adapterTrains.open();
+		Cursor cur = adapterTrains.getWay(trainNumber);
+		adapterTrains.close();
 		return cur == null;
 	}
 	
