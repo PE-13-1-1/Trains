@@ -1194,6 +1194,7 @@ containing a value of this type.
         public static final int tab_unselected_pressed_moqupstheme=0x7f0200bf;
         public static final int text_act=0x7f0200c0;
         public static final int update=0x7f0200c1;
+        public static final int updateanimation=0x7f0200c2;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f06003c;
