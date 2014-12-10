@@ -20,7 +20,9 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="68dp"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:gravity="center"
+                        android:textAlignment="center"  />
 
                     <AutoCompleteTextView
                         android:id="@+id/search_way2"
@@ -29,7 +31,9 @@
                         android:layout_alignLeft="@+id/search_way1"
                         android:layout_below="@+id/swap_but"
                         android:layout_marginTop="18dp"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:gravity="center_vertical|center" 
+                        android:textAlignment="center" />
 
                     <ImageButton
                         android:id="@+id/swap_but"
