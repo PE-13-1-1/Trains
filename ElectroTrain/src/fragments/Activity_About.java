@@ -21,6 +21,7 @@ public class Activity_About extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_about, container,
                 false);
+        
         return rootView;
     }
 
