@@ -24,27 +24,17 @@ public class FavouriteContext
 		adapterWays = new DBAdapterWays(context);
 	}
 	
-	public boolean addStationToFauvorite(Station station, ArrayList<Train> trains)
+	public boolean addStationToFavourite(String stationName, String[] trainNumbers, String[] stationNamesFrom,
+			String[] stationNamesTo, String[] arrivals, String[] departures, String[] statuses)
 	{
 		try
 		{
 			adapterStations.open();
 			
-			for (Train train : trains)
-			{
-				String arrival = null;
-				String departure = null;
-				
-				for (Stop stop : train.getStops())
-					if (stop.getStationId() == station.getStationId())
-					{
-						arrival = stop.getTimeArrival().toString();
-						departure = stop.getTimeDeparture().toString();
-					}
-				
-				adapterStations.insertRecord(station.getStationName(), train.getTrainNumber(),
-						train.getStartPoint(), train.getFinalPoint(), arrival, departure);
-			}
+			int size = trainNumbers.length;
+			for (int i = 0; i < size; i++)
+				adapterStations.insertRecord(stationName, Integer.parseInt(trainNumbers[i]), stationNamesFrom[i],
+					stationNamesTo[i], arrivals[i], departures[i], statuses[i]);
 			
 			adapterStations.close();
 			return true;
@@ -55,31 +45,17 @@ public class FavouriteContext
 		}
 	}
 	
-	public boolean addWayToFavourite(Station first, Station second, ArrayList<Train> trains)
+	public boolean addWayToFavourite(String[] firstStationNames, String[] secondStationNames, String[] trainNumbers,
+			String[] stationNamesFrom, String[] stationNamesTo, String[] arrivalsToFirst, String[] arrivalsToSecond, String[] statuses)
 	{
 		try
 		{
 			adapterWays.open();
 			
-			for (Train train : trains)
-			{
-				String arrivalToFirst = null;
-				String arrivalToSecond = null;
-				
-				for (Stop stop : train.getStops())
-					if (stop.getStationId() == first.getStationId())
-					{
-						arrivalToFirst = stop.getTimeArrival().toString();
-					}
-					else if (stop.getStationId() == second.getStationId())
-					{
-						arrivalToSecond = stop.getTimeArrival().toString();
-					}
-				
-				adapterWays.insertWay(first.getStationName(), second.getStationName(),
-						train.getTrainNumber(), train.getStartPoint(), train.getFinalPoint(),
-						arrivalToFirst, arrivalToSecond);
-			}
+			int size = trainNumbers.length;
+			for (int i = 0; i < size; i++)
+				adapterWays.insertWay(firstStationNames[i], secondStationNames[i], Integer.parseInt(trainNumbers[i]),
+						stationNamesFrom[i], stationNamesTo[i], arrivalsToFirst[i], arrivalsToSecond[i], statuses[i]);
 			
 			adapterWays.close();
 			return true;
@@ -89,6 +65,7 @@ public class FavouriteContext
 			return false;
 		}
 	}
+	
 	public boolean addTrainToFavourite(int trainNumber, ArrayList<Stop> stops)
 	{
 		try
@@ -97,7 +74,7 @@ public class FavouriteContext
 			
 			for (Stop stop : stops)
 			{
-				adapterTrains.insertWay(trainNumber, stop.getStationName(),
+				adapterTrains.insertTrain(trainNumber, stop.getStationName(),
 						stop.getTimeArrival().toString(), stop.getTimeDeparture().toString());
 			}
 			
@@ -152,7 +129,7 @@ public class FavouriteContext
 		{
 			do
 			{
-				String trainNumber = cur.getString(cur.getColumnIndex("stationname"));
+				String trainNumber = cur.getString(cur.getColumnIndex("trainnumber"));
 				if (!result.contains(Integer.parseInt(trainNumber)))
 					result.add(Integer.parseInt(trainNumber));
 			}
@@ -213,8 +190,10 @@ public class FavouriteContext
 				ArrayList<String> train = new ArrayList<String>();
 				train.add(cur.getString(cur.getColumnIndex("stationnamefrom")));
 				train.add(cur.getString(cur.getColumnIndex("stationnameto")));
+				train.add(cur.getString(cur.getColumnIndex("status")));
 				train.add(cur.getString(cur.getColumnIndex("arrival")));
 				train.add(cur.getString(cur.getColumnIndex("departure")));
+				train.add(String.valueOf(cur.getInt(cur.getColumnIndex("trainnumber"))));
 				if (!result.contains(train))
 					result.add(train);
 			}
@@ -236,7 +215,7 @@ public class FavouriteContext
 		
 		adapterTrains.open();
 		
-		Cursor cur = adapterTrains.getWay(trainNumber);
+		Cursor cur = adapterTrains.getTrain(trainNumber);
 		
 		if (cur.moveToFirst())
 		{
@@ -276,8 +255,10 @@ public class FavouriteContext
 				ArrayList<String> train = new ArrayList<String>();
 				train.add(cur.getString(cur.getColumnIndex("stationnamefrom")));
 				train.add(cur.getString(cur.getColumnIndex("stationnameto")));
+				train.add(cur.getString(cur.getColumnIndex("status")));
 				train.add(cur.getString(cur.getColumnIndex("arrivaltofirst")));
 				train.add(cur.getString(cur.getColumnIndex("arrivaltosecond")));
+				train.add(String.valueOf(cur.getInt(cur.getColumnIndex("trainnumber"))));
 				if (!result.contains(train))
 					result.add(train);
 			}
@@ -313,7 +294,7 @@ public class FavouriteContext
 		try
 		{
 			adapterTrains.open();
-			adapterTrains.deleteWay(trainNumber);
+			adapterTrains.deleteTrain(trainNumber);
 			adapterTrains.close();
 			return true;
 		}
@@ -349,7 +330,7 @@ public class FavouriteContext
 	public boolean isFavouriteTrain(int trainNumber)
 	{
 		adapterTrains.open();
-		Cursor cur = adapterTrains.getWay(trainNumber);
+		Cursor cur = adapterTrains.getTrain(trainNumber);
 		adapterTrains.close();
 		return cur == null;
 	}

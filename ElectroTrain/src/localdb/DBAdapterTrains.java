@@ -7,34 +7,30 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBAdapterStations 
+public class DBAdapterTrains 
 {
 	public static final String KEY_ID = "id";
-	public static final String KEY_STATIONNAME = "stationname";
 	public static final String KEY_TRAINNUMBER = "trainnumber";
-	public static final String KEY_STATIONNAMEFROM = "stationnamefrom";
-	public static final String KEY_STATIONNAMETO = "stationnameto";
+	public static final String KEY_STATIONNAME = "stationname";
 	public static final String KEY_ARRIVAL = "arrival";
 	public static final String KEY_DEPARTURE = "departure";
 	
-	private static final String DATABASE_NAME = "StationsDB";
-	private static final String DATABASE_TABLE = "stations";
+	private static final String DATABASE_NAME = "TrainsDB";
+	private static final String DATABASE_TABLE = "trains";
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_CREATE = 
-					"create table if not exists stations ("
+					"create table if not exists trains ("
 		          + "id integer primary key autoincrement," 
-		          + "stationname text," 
-		          + "trainnumber integer," 
-		          + "stationnamefrom text,"
-		          + "stationnameto text," 
-		          + "arrival text," 
-		          + "departure text" + ");";
+		          + "trainnumber integer,"
+		          + "stationname text,"
+		          + "arrival text,"
+		          + "deparuture text" + ");";
 	
 	private final Context context;
 	private DatabaseHelper DBHelper;
 	private SQLiteDatabase db;
 	
-	public DBAdapterStations(Context context)
+	public DBAdapterTrains(Context context)
 	{
 		this.context = context;
 		DBHelper = new DatabaseHelper(this.context);
@@ -59,13 +55,13 @@ public class DBAdapterStations
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 		{
-			db.execSQL("DROP TABLE IF EXISTS stations");
+			db.execSQL("DROP TABLE IF EXISTS trains");
 			onCreate(db);
 		}
 	}
 	
 	//---opens the database---
-	public DBAdapterStations open() throws SQLException
+	public DBAdapterTrains open() throws SQLException
 	{
 		db = DBHelper.getWritableDatabase();
 		return this;
@@ -78,40 +74,36 @@ public class DBAdapterStations
 	}
 	
 	//---insert a record into the database---
-	public long insertRecord(String stationName, int trainNumber, String stationNameFrom,
-			String stationNameTo, String arrival, String departure)
+	public long insertTrain(int trainNumber, String stationName, String arrival, String departure)
 	{
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(KEY_STATIONNAME, stationName);
 		initialValues.put(KEY_TRAINNUMBER, trainNumber);
-		initialValues.put(KEY_STATIONNAMEFROM, stationNameFrom);
-		initialValues.put(KEY_STATIONNAMETO, stationNameTo);
+		initialValues.put(KEY_STATIONNAME, stationName);
 		initialValues.put(KEY_ARRIVAL, arrival);
 		initialValues.put(KEY_DEPARTURE, departure);
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
 	
 	//---deletes a particular record---
-	public boolean deleteStation(String stationName)
+	public boolean deleteTrain(int trainNumber)
 	{
-		return db.delete(DATABASE_TABLE, KEY_STATIONNAME + "= ?", new String[] { stationName }) > 0;
+		return db.delete(DATABASE_TABLE, KEY_TRAINNUMBER + "= ?", new String[] { String.valueOf(trainNumber) }) > 0;
 	}
 	
 	//---retrieves all the records---
 	public Cursor getAllRecords()
 	{
-		return db.query(DATABASE_TABLE, new String[] { KEY_ID, KEY_STATIONNAME, KEY_TRAINNUMBER,
-				KEY_STATIONNAMEFROM, KEY_STATIONNAMETO, KEY_ARRIVAL, KEY_DEPARTURE },
+		return db.query(DATABASE_TABLE, new String[] { KEY_ID, KEY_TRAINNUMBER, KEY_STATIONNAME,
+				KEY_ARRIVAL, KEY_DEPARTURE },
 				null, null, null, null, null);
 	}
 	
 	//---retrieves a particular record---
-	public Cursor getStation(String stationName) throws SQLException
+	public Cursor getTrain(int trainNumber) throws SQLException
 	{
-		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] { KEY_ID, KEY_STATIONNAME,
-				KEY_TRAINNUMBER, KEY_STATIONNAMEFROM, KEY_STATIONNAMETO, KEY_ARRIVAL, 
-				KEY_DEPARTURE },
-				KEY_STATIONNAME + " = ?", new String[] { stationName }, null, null, null, null);
+		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] { KEY_ID, KEY_TRAINNUMBER, KEY_STATIONNAME,
+				KEY_ARRIVAL, KEY_DEPARTURE },
+				KEY_TRAINNUMBER + "= ?", new String[] { String.valueOf(trainNumber) }, null, null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 		}
@@ -119,15 +111,12 @@ public class DBAdapterStations
 	}
 	
 	//---updates a record---
-	public boolean updateStation(String stationName, int trainNumber, 
-			String stationNameFrom, String stationNameTo, String arrival, String departure)
+	public boolean updateTrain(int trainNumber, String stationName, String arrival, String departure)
 	{
 		ContentValues updatedValues = new ContentValues();
-		updatedValues.put(KEY_TRAINNUMBER, trainNumber);
-		updatedValues.put(KEY_STATIONNAMEFROM, stationNameFrom);
-		updatedValues.put(KEY_STATIONNAMETO, stationNameTo);
+		updatedValues.put(KEY_STATIONNAME, stationName);
 		updatedValues.put(KEY_ARRIVAL, arrival);
 		updatedValues.put(KEY_DEPARTURE, departure);
-		return db.update(DATABASE_TABLE, updatedValues, KEY_STATIONNAME + "= ?", new String[] { stationName }) > 0;
+		return db.update(DATABASE_TABLE, updatedValues, KEY_TRAINNUMBER + "= ?", new String[] { String.valueOf(trainNumber) }) > 0;
 	}
 }

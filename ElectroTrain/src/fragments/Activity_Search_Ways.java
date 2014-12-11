@@ -75,7 +75,7 @@ public class Activity_Search_Ways extends Fragment {
             	String stationNameFirst = mAutoCompleteFirst.getText().toString();
             	String stationNameSecond = mAutoCompleteSecond.getText().toString();
              	TrainContext context = new TrainContext();
-             	String[][] trainInfo = context.getTrainsByStationNames(stationNameFirst, stationNameSecond);
+             	//ArrayList<ArrayList<String>> trainInfo = context.getTrainsByStationNames(stationNameFirst, stationNameSecond);
             	 
             	Fragment fragment = new Activity_Way_screen();
              	Fragment parent=getParentFragment();

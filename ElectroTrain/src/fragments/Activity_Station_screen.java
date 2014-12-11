@@ -32,7 +32,6 @@ public class Activity_Station_screen extends Fragment
 	FragmentPagerAdapter adapterViewPager;
     ImageButton fav_but;
 	ImageButton refresh_but;
-	boolean favouriteFlag = false;
 	
 	String[] stationsFrom;
 	String[] stationsTo;
@@ -41,6 +40,7 @@ public class Activity_Station_screen extends Fragment
 	String[] trainsIds;
 	
 	String stationName;
+	boolean isFav;
 	
 	public Activity_Station_screen() 
     {
@@ -56,9 +56,10 @@ public class Activity_Station_screen extends Fragment
 		trainsIds[0] = "1";
 		
 		stationName = "Песочин тестовый";
+		isFav = false;
     }
 	
-    public Activity_Station_screen(String stationName, String[][] trainsInfo) 
+    public Activity_Station_screen(String stationName, String[][] trainsInfo, boolean isFav) 
     {
     	int size = trainsInfo.length;
     	stationsFrom = new String[size];
@@ -87,13 +88,21 @@ public class Activity_Station_screen extends Fragment
     	}
     	
     	this.stationName = stationName;
+    	this.isFav = isFav;
     }
 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 	{	
         View rootView = inflater.inflate(R.layout.activity_stations, container, false);
-
+        
+    	ImageButton fav = (ImageButton) rootView.findViewById(R.id.fav_but);
+    	 
+    	if (isFav)
+    		 fav.setImageDrawable(getResources().getDrawable(R.drawable.filledstar));
+    	else 
+   		 	fav.setImageDrawable(getResources().getDrawable(R.drawable.emptystar));
+    		 
         TextView title = (TextView) rootView.findViewById(R.id.textViewTitle);
         title.setText(stationName);
         
@@ -133,20 +142,24 @@ public class Activity_Station_screen extends Fragment
         	{
 	            public void onClick(View v) 
 	            {
-	            	ImageButton b=(ImageButton) v.findViewById(R.id.fav_but);
-	            	if(favouriteFlag)
+	            	ImageButton b = (ImageButton) v.findViewById(R.id.fav_but);
+	            	if (isFav)
 	            	{
 	            		Drawable emptyStar = getResources().getDrawable(R.drawable.emptystar);
 	            		b.setImageDrawable(emptyStar);
-	            		favouriteFlag = false;
-	            		// place for RUD	            		            		
+	            		isFav = false;
+	            		
+	            		FavouriteContext fCon = new FavouriteContext(getActivity().getApplicationContext());	    
+	            		fCon.deleteStationFromFavourite(stationName);
 	            	}
 	            	else
 	            	{
 	            		Drawable fillStar = getResources().getDrawable(R.drawable.filledstar);
 	            		b.setImageDrawable(fillStar);
-	            		favouriteFlag = true;
-	            		//place for RUD	
+	            		isFav = true;
+	            		
+	            		FavouriteContext fCon = new FavouriteContext(getActivity().getApplicationContext());	    
+	            		fCon.addStationToFavourite(stationName, trainNumber, stationNameFrom, stationNameTo, arrival, departure, status)
 	            	}
 	            }
         	}

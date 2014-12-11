@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,11 +38,13 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import ua.kture.pi1311.context.Converter;
 import ua.kture.pi1311.context.FavouriteContext;
 import ua.kture.pi1311.context.StoredStationsContext;
 import ua.kture.pi1311.context.TrainContext;
 import ua.kture.pi1311.electrotrain.ExpandableListAdapter;
 import ua.kture.pi1311.electrotrain.R;
+import ua.kture.pi1311.entity.Stop;
 import ua.kture.pi1311.entity.Train;
 
 public class Activity_Search_Stations extends Fragment {
@@ -54,11 +57,11 @@ public class Activity_Search_Stations extends Fragment {
     ArrayList<HashMap<String, String>> trainList;
     ImageButton search_but;
     ArrayList<Train> trains;
+    ProgressDialog progress;
     
 	
     public Activity_Search_Stations() 
     {
-    	
     }
 
     @Override
@@ -86,10 +89,21 @@ public class Activity_Search_Stations extends Fragment {
          search_but.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
             	String stationName = mAutoComplete.getText().toString();
-            	//TrainContext context = new TrainContext();
-            	//String[][] trainInfo = context.getTrainsByStationName(stationName);
+            	String[][] trainInfo;
             	
-            	Fragment fragment = new Activity_Station_screen();
+           	 	FavouriteContext fCon = new FavouriteContext(getActivity().getApplicationContext());
+           	 	boolean isFav = fCon.isFavouriteStation(stationName);
+           	 	if (isFav)
+           	 	{
+           	 		trainInfo = Converter.convertToArray(fCon.getTrainsForStation(stationName));
+           	 	}
+           	 	else
+           	 	{
+                	TrainContext context = new TrainContext();
+                	trainInfo = context.getTrainsByStationName(stationName);
+           	 	}
+            	
+            	Fragment fragment = new Activity_Station_screen(stationName, trainInfo, isFav);
              	Fragment parent=getParentFragment();
              	FragmentManager fragmentManager2 = parent.getFragmentManager();
              	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();

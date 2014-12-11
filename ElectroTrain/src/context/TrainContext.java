@@ -31,7 +31,7 @@ public class TrainContext implements ITrainContext
 	String Station_way1;
 	String Station_way2;
 	String[][] trains_forStation;
-	String [][] trains_forWay;
+	ArrayList<ArrayList<String>> trains_forWay;
 	ArrayList<Stop> stops;
 	String TrainNumber;
 	
@@ -40,7 +40,7 @@ public class TrainContext implements ITrainContext
 		StationName=stationName;
 		try
 		{
-		String str_result=new DownloadStationTask().execute("http://178.150.137.228:8080/Server/").get();
+		String str_result=new DownloadStationTask().execute("http://monopoly.jvmhost.net/Train/").get();
 		}
 		catch(Exception e)
 		{
@@ -76,7 +76,27 @@ public class TrainContext implements ITrainContext
 		{
 			
 		}
-		return trains_forWay;
+		String[][] result = new String[trains_forWay.size()][6];
+		for (int i = 0; i < trains_forWay.size(); i++)
+		{
+			if (trains_forWay.get(i).get(3) != null)
+				result[i][0] = trains_forWay.get(i).get(3);
+			else result[i][0] = "";
+			if (trains_forWay.get(i).get(4) != null)
+				result[i][1] = trains_forWay.get(i).get(4);
+			else result[i][1] = "";
+			result[i][2] = "Каждый день";
+			if (trains_forWay.get(i).get(0) != null)
+				result[i][3] = trains_forWay.get(i).get(0);
+			else result[i][3] = "";
+			if (trains_forWay.get(i).get(1) != null)
+				result[i][4] = trains_forWay.get(i).get(1);
+			else result[i][4] = "";
+			if (trains_forWay.get(i).get(2) != null)
+				result[i][5] = trains_forWay.get(i).get(2);
+			else result[i][5] = "";
+		}
+		return result;
 	}
 	private class DownloadStationTask extends AsyncTask<String, Void, String> {
         @Override
@@ -97,7 +117,7 @@ public class TrainContext implements ITrainContext
     private String downloadStationUrl(String myurl) throws IOException 
     {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://monopoly.jvmhost.net/Train");
+        HttpPost httppost = new HttpPost("http://monopoly.jvmhost.net/Train/");
 	    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 	    params.add(new BasicNameValuePair("method", "1"));
 	    params.add(new BasicNameValuePair("stationName", StationName));
@@ -147,7 +167,7 @@ public class TrainContext implements ITrainContext
  
    ObjectInputStream in = new ObjectInputStream(entity.getContent());
    try {
-               trains_forWay = (String[][])in.readObject();
+               trains_forWay = (ArrayList<ArrayList<String>>)in.readObject();
                //t1.setText((String)tr.getStartPoint());
        } catch (ClassNotFoundException e) {
                // TODO Auto-generated catch block
@@ -184,7 +204,7 @@ public class TrainContext implements ITrainContext
  
    ObjectInputStream in = new ObjectInputStream(entity.getContent());
    try {
-	   		stops= (ArrayList<Stop>)in.readObject();
+	   		stops = (ArrayList<Stop>)in.readObject();
 	   } 
    catch (ClassNotFoundException e) {
                // TODO Auto-generated catch block

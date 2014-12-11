@@ -17,6 +17,7 @@ public class DBAdapterWays
 	public static final String KEY_STATIONNAMETO = "stationnameto";
 	public static final String KEY_ARRIVALTOFIRST = "arrivaltofirst";
 	public static final String KEY_ARRIVALTOSECOND = "arrivaltosecond";
+	public static final String KEY_STATUS = "status";
 	
 	private static final String DATABASE_NAME = "WaysDB";
 	private static final String DATABASE_TABLE = "ways";
@@ -30,7 +31,8 @@ public class DBAdapterWays
 		          + "stationnamefrom text,"
 		          + "stationnameto text," 
 		          + "arrivaltofirst text,"
-		          + "arrivaltosecond text," + ");";
+		          + "arrivaltosecond text,"
+		          + "status text" + ");";
 	
 	private final Context context;
 	private DatabaseHelper DBHelper;
@@ -81,7 +83,7 @@ public class DBAdapterWays
 	
 	//---insert a record into the database---
 	public long insertWay(String firstStationName, String secondStationName, int trainNumber,
-			String stationNameFrom, String stationNameTo, String arrivalToFirst, String arrivalToSecond)
+			String stationNameFrom, String stationNameTo, String arrivalToFirst, String arrivalToSecond, String status)
 	{
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_FIRSTSTATIONNAME, firstStationName);
@@ -91,6 +93,7 @@ public class DBAdapterWays
 		initialValues.put(KEY_STATIONNAMETO, stationNameTo);
 		initialValues.put(KEY_ARRIVALTOFIRST, arrivalToFirst);
 		initialValues.put(KEY_ARRIVALTOSECOND, arrivalToSecond);
+		initialValues.put(KEY_STATUS, status);
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
 	
@@ -105,7 +108,7 @@ public class DBAdapterWays
 	{
 		return db.query(DATABASE_TABLE, new String[] { KEY_ID, KEY_FIRSTSTATIONNAME, 
 				KEY_FIRSTSTATIONNAME, KEY_TRAINNUMBER, KEY_STATIONNAMEFROM, KEY_STATIONNAMETO, 
-				KEY_ARRIVALTOFIRST, KEY_ARRIVALTOSECOND },
+				KEY_ARRIVALTOFIRST, KEY_ARRIVALTOSECOND, KEY_STATUS },
 				null, null, null, null, null);
 	}
 	
@@ -114,7 +117,7 @@ public class DBAdapterWays
 	{
 		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] { KEY_ID, KEY_FIRSTSTATIONNAME, 
 				KEY_FIRSTSTATIONNAME, KEY_TRAINNUMBER, KEY_STATIONNAMEFROM, KEY_STATIONNAMETO, 
-				KEY_ARRIVALTOFIRST, KEY_ARRIVALTOSECOND },
+				KEY_ARRIVALTOFIRST, KEY_ARRIVALTOSECOND, KEY_STATUS },
 				KEY_FIRSTSTATIONNAME + "= ? AND " + KEY_SECONDSTATIONNAME + "= ?",
 				new String[] { stationNameFirst, stationNameSecond }, null, null, null, null);
 		if (mCursor != null) {
@@ -125,7 +128,7 @@ public class DBAdapterWays
 	
 	//---updates a record---
 	public boolean updateWay(long rowId, String firstStationName, String secondStationName, int trainNumber,
-			String stationNameFrom, String stationNameTo, String arrivalToFirst, String arrivalToSecond)
+			String stationNameFrom, String stationNameTo, String arrivalToFirst, String arrivalToSecond, String status)
 	{
 		ContentValues updatedValues = new ContentValues();
 		updatedValues.put(KEY_TRAINNUMBER, trainNumber);
@@ -133,6 +136,7 @@ public class DBAdapterWays
 		updatedValues.put(KEY_STATIONNAMETO, stationNameTo);
 		updatedValues.put(KEY_ARRIVALTOFIRST, arrivalToFirst);
 		updatedValues.put(KEY_ARRIVALTOSECOND, arrivalToSecond);
+		updatedValues.put(KEY_STATUS, arrivalToSecond);
 		return db.update(DATABASE_TABLE, updatedValues, KEY_FIRSTSTATIONNAME + "= ? AND " + KEY_SECONDSTATIONNAME + "= ?", new String[] { firstStationName, secondStationName }) > 0;
 	}
 }
