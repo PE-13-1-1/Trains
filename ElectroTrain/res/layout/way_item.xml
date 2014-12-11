@@ -27,24 +27,17 @@
         android:layout_weight="1"
         android:text="TextView" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_weight="0.3"
+        android:src="@drawable/exclaim_mark" />
 
     <TextView
         android:id="@+id/textViewTrainId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.01" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="22dp"
-        android:layout_height="17dp"
-        android:layout_weight="1"
-        android:src="@drawable/exclaim_mark" />
 
 </LinearLayout>

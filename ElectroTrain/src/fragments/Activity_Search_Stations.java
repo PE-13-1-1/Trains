@@ -86,10 +86,10 @@ public class Activity_Search_Stations extends Fragment {
          search_but.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
             	String stationName = mAutoComplete.getText().toString();
-            	TrainContext context = new TrainContext();
-            	String[][] trainInfo = context.getTrainsByStationName("Занки");
+            	//TrainContext context = new TrainContext();
+            	//String[][] trainInfo = context.getTrainsByStationName(stationName);
             	
-            	Fragment fragment = new Activity_Station_screen("Занки",trainInfo);
+            	Fragment fragment = new Activity_Station_screen();
              	Fragment parent=getParentFragment();
              	FragmentManager fragmentManager2 = parent.getFragmentManager();
              	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();

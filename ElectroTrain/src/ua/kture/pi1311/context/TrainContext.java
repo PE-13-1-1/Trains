@@ -54,7 +54,7 @@ public class TrainContext implements ITrainContext
 		TrainNumber=Integer.toString(trainId);
 		try
 		{
-		String str_result=new DownloadTrainTask().execute("http://178.150.137.228:8080/Server/").get();
+		String str_result=new DownloadTrainTask().execute("http://monopoly.jvmhost.net/Train/").get();
 		}
 		catch(Exception e)
 		{
@@ -70,7 +70,7 @@ public class TrainContext implements ITrainContext
 		Station_way2=stationNameSecond;
 		try
 		{
-		String str_result=new DownloadWayTask().execute("http://178.150.137.228:8080/Server/").get();
+		String str_result=new DownloadWayTask().execute("http://monopoly.jvmhost.net/Train/").get();
 		}
 		catch(Exception e)
 		{
@@ -94,26 +94,29 @@ public class TrainContext implements ITrainContext
                
        }
     }
-    private String downloadStationUrl(String myurl) throws IOException {
+    private String downloadStationUrl(String myurl) throws IOException 
+    {
         HttpClient httpclient = new DefaultHttpClient();
-    HttpPost httppost = new HttpPost("http://178.150.137.228:8080/Server/");
-   List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-   params.add(new BasicNameValuePair("method", "1"));
-   params.add(new BasicNameValuePair("stationName" ,StationName));
-   httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-   HttpResponse response = httpclient.execute(httppost);
-   HttpEntity entity = response.getEntity();
+        HttpPost httppost = new HttpPost("http://monopoly.jvmhost.net/Train");
+	    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+	    params.add(new BasicNameValuePair("method", "1"));
+	    params.add(new BasicNameValuePair("stationName", StationName));
+	    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+	    HttpResponse response = httpclient.execute(httppost);
+	    HttpEntity entity = response.getEntity();
  
-   ObjectInputStream in = new ObjectInputStream(entity.getContent());
-   try {
+	    ObjectInputStream in = new ObjectInputStream(entity.getContent());
+	    try 
+	    {
                trains_forStation = (String[][])in.readObject();
                //t1.setText((String)tr.getStartPoint());
-       } catch (ClassNotFoundException e) {
-               // TODO Auto-generated catch block
+        } 
+	    catch (ClassNotFoundException e) 
+	    {
                e.printStackTrace();
-       }
-   in.close();
-   return "1";
+        }
+	    in.close();
+	    return "1";
    }
     private class DownloadWayTask extends AsyncTask<String, Void, String> {
         @Override
@@ -133,7 +136,7 @@ public class TrainContext implements ITrainContext
     }
     private String downloadWayUrl(String myurl) throws IOException {
         HttpClient httpclient = new DefaultHttpClient();
-    HttpPost httppost = new HttpPost("http://178.150.137.228:8080/Server/");
+    HttpPost httppost = new HttpPost("http://monopoly.jvmhost.net/Train/");
    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
    params.add(new BasicNameValuePair("method", "3"));
    params.add(new BasicNameValuePair("name_1" ,Station_way1));
@@ -171,7 +174,7 @@ public class TrainContext implements ITrainContext
     }
     private String downloadTrainUrl(String myurl) throws IOException {
         HttpClient httpclient = new DefaultHttpClient();
-    HttpPost httppost = new HttpPost("http://178.150.137.228:8080/Server/");
+    HttpPost httppost = new HttpPost("http://monopoly.jvmhost.net/Train/");
    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
    params.add(new BasicNameValuePair("method", "2"));
    params.add(new BasicNameValuePair("number" ,TrainNumber));
@@ -181,9 +184,9 @@ public class TrainContext implements ITrainContext
  
    ObjectInputStream in = new ObjectInputStream(entity.getContent());
    try {
-               trains_forWay = (String[][])in.readObject();
-               //t1.setText((String)tr.getStartPoint());
-       } catch (ClassNotFoundException e) {
+	   		stops= (ArrayList<Stop>)in.readObject();
+	   } 
+   catch (ClassNotFoundException e) {
                // TODO Auto-generated catch block
                e.printStackTrace();
        }

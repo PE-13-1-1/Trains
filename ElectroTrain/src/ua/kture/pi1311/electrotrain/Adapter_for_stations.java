@@ -33,16 +33,14 @@ public class Adapter_for_stations extends ArrayAdapter<String> {
   public View getView(int position, View convertView, ViewGroup parent) 
   {
     LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View rowView = inflater.inflate(R.layout.train_item, parent, false);
+    View rowView = inflater.inflate(R.layout.way_item, parent, false);
     TextView textView1 = (TextView) rowView.findViewById(R.id.label);
     TextView textView2 = (TextView) rowView.findViewById(R.id.label2);
     TextView textView3 = (TextView) rowView.findViewById(R.id.textView3);
-    TextView textView4 = (TextView) rowView.findViewById(R.id.textView4);
     TextView textView5 = (TextView) rowView.findViewById(R.id.textViewTrainId);
     textView1.setText(stationsFrom[position]);
     textView2.setText(stationsTo[position]);
     textView3.setText(arrivals[position]);
-    textView4.setText(depatures[position]);
     textView5.setText(trainsIds[position]);
     // Change the icon for Windows and iPhone
     return rowView;

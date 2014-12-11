@@ -48,7 +48,7 @@ public class Activity_Train extends Fragment {
     	finalStation = "Мерчик";
     }
     
-    public Activity_Train(String startStation, String finalStation, ArrayList<Stop> stops)
+    public Activity_Train(ArrayList<Stop> stops)
     {
     	int size = stops.size();
     	stopsNames = new String[size];
@@ -57,13 +57,19 @@ public class Activity_Train extends Fragment {
     	
     	for (int i = 0; i < size; i++)
     	{
-    		stopsNames[i] = stops.get(i).getStationName();
-    		arrivals[i] = stops.get(i).getTimeArrival().toString();
-    		departures[i] = stops.get(i).getTimeDeparture().toString();
+    		if (stops.get(i).getStationName() != null)
+    			stopsNames[i] = stops.get(i).getStationName();
+    		else stopsNames[i] = "";
+    		if (stops.get(i).getTimeArrival().toString() != null)
+    			arrivals[i] = stops.get(i).getTimeArrival().toString();
+    		else arrivals[i] = "";
+    		if (stops.get(i).getTimeDeparture().toString() != null)
+    			departures[i] = stops.get(i).getTimeDeparture().toString();
+    		else departures[i] = "";
     	}
     	
-    	this.startStation = startStation;
-    	this.finalStation = finalStation;
+    	this.startStation = stops.get(0).getStationName();
+    	this.finalStation = stops.get(stops.size()-1).getStationName();
     }
 
     @Override

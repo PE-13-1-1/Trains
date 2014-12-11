@@ -63,17 +63,27 @@ public class Activity_Station_screen extends Fragment
     	int size = trainsInfo.length;
     	stationsFrom = new String[size];
     	stationsTo = new String[size];
-    	stationsFrom = new String[size];
-    	stationsFrom = new String[size];
+    	arrivals = new String[size];
+    	depatures = new String[size];
     	trainsIds = new String[size];
     	
     	for (int i = 0; i < size; i++)
     	{
-    		stationsFrom[i] = trainsInfo[i][0];
-    		stationsTo[i] = trainsInfo[i][1];
-    		arrivals[i] = trainsInfo[i][2];
-    		depatures[i] = trainsInfo[i][3];
-    		trainsIds[i] = trainsInfo[i][4];
+    		if (trainsInfo[i][0] != null)
+    			stationsFrom[i] = trainsInfo[i][0];
+    		else stationsFrom[i] = "";
+    		if (trainsInfo[i][1] != null)
+    			stationsTo[i] = trainsInfo[i][1];
+    		else stationsTo[i] = "";
+    		if (trainsInfo[i][3] != null)
+    			arrivals[i] = trainsInfo[i][3];
+    		else arrivals[i] = "";
+    		if (trainsInfo[i][4] != null)
+    			depatures[i] = trainsInfo[i][4];
+    		else depatures[i] = "";
+    		if (trainsInfo[i][5] != null)
+    			trainsIds[i] = trainsInfo[i][5];
+    		else trainsIds[i] = "";
     	}
     	
     	this.stationName = stationName;
@@ -105,7 +115,7 @@ public class Activity_Station_screen extends Fragment
 	            	TrainContext context = new TrainContext();
 	            	ArrayList<Stop> stopList = context.getStopsByTrainId(trainId);
 	            	
-	            	Fragment fragment = new Activity_Train();
+	            	Fragment fragment = new Activity_Train(stopList);
 	             	FragmentManager fragmentManager2 = getFragmentManager();
 	             	FragmentTransaction fragmentTransaction = fragmentManager2.beginTransaction();
 	            	fragmentTransaction.replace(R.id.content_frame, fragment);

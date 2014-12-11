@@ -88,7 +88,7 @@ public class FavouriteContext
 		{
 			return false;
 		}
-	
+	}
 	public boolean addTrainToFavourite(int trainNumber, ArrayList<Stop> stops)
 	{
 		try
