@@ -3,48 +3,76 @@
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingLeft="5dp" >
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp" >
 
-    <TextView
-        android:id="@+id/label2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="TextView"
+            android:textSize="14dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/label2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="TextView" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="TextView" />
 
-    <TextView
-        android:id="@+id/textViewTrainId"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.01" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="TextView" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="22dp"
-        android:layout_height="17dp"
-        android:layout_weight="1"
-        android:src="@drawable/exclaim_mark" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4" >
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/excl_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/exclaim_mark" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:orientation="vertical" >
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewTrainId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.01" />
+    </LinearLayout>
 
 </LinearLayout>

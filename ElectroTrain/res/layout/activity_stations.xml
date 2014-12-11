@@ -23,7 +23,7 @@
             android:layout_height="60dp"
             android:layout_weight="0.10"
             android:background="@android:color/transparent"
-            android:src="@drawable/filledstar" />
+            android:src="@drawable/emptystar" />
 
     </LinearLayout>
 
@@ -80,8 +80,10 @@
             android:id="@+id/textView5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Статус" />
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Статус           " />
+
     </LinearLayout>
 
     <ListView
